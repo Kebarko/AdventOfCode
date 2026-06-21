@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/AoC.App/AoC.App.csproj" Id="992db445-ae94-4d31-866c-1e952e60a18b" />
+  <Project Path="src/AoC.Core/AoC.Core.csproj" Id="46bced3e-e72c-4c48-932d-4a51a0dce5eb" />
+  <Project Path="src/AoC.Solutions/AoC.Solutions.csproj" Id="8944c4ad-79b4-4b6c-a07a-2b47c83d8a53" />
+</Solution>
