@@ -6,8 +6,6 @@
 /// <param name="root">The root directory containing the input files.</param>
 public sealed class FileInputProvider(string root) : IInputProvider
 {
-    private readonly string root = root;
-
     /// <summary>
     /// Retrieves the input data for a specific year and day of the Advent of Code puzzle from a file following the convention <c>inputs/{year}/{day:D2}.txt</c>, e.g. <c>inputs/2024/01.txt</c>.
     /// </summary>
