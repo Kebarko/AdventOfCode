@@ -1,4 +1,8 @@
-﻿using KE.AoC.App.Views;
+﻿using KE.AoC.App.ViewModels;
+using KE.AoC.App.Views;
+using KE.AoC.Core.Input;
+using KE.AoC.Core.Solution;
+using KE.AoC.Solutions;
 using System.Windows;
 
 namespace KE.AoC.App;
@@ -12,7 +16,13 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        var window = new MainWindow();
+        var registry = new SolutionRegistry(typeof(SolutionsAssemblyMarker).Assembly);
+        var inputProvider = new FileInputProvider(FileInputProvider.LocateInputsRoot());
+        var runner = new SolutionRunner();
+
+        var mainViewModel = new MainViewModel(registry, inputProvider, runner);
+
+        var window = new MainWindow { DataContext = mainViewModel };
         window.Show();
     }
 }

@@ -5,7 +5,7 @@ namespace KE.AoC.App.ViewModels.Common;
 /// <summary>
 /// Represents an asynchronous command that can be bound to UI elements in a WPF application.
 /// </summary>
-internal class AsyncRelayCommand(Func<Task> execute, Func<bool>? canExecute = null) : ICommand
+public class AsyncRelayCommand(Func<Task> execute, Func<bool>? canExecute = null) : ICommand
 {
     private bool isExecuting;
 

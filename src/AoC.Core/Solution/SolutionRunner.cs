@@ -20,7 +20,7 @@ public sealed class SolutionRunner
     /// <param name="part">The part of the solution to run (1 or 2).</param>
     /// <param name="ct">The cancellation token.</param>
     /// <returns>A task representing the asynchronous operation and its result.</returns>
-    public static Task<PartResult> RunAsync(Func<string> inputFactory, Func<ISolution> solutionFactory, int part, CancellationToken ct)
+    public Task<PartResult> RunAsync(Func<string> inputFactory, Func<ISolution> solutionFactory, int part, CancellationToken ct = default)
     {
         return Task.Run(() =>
         {

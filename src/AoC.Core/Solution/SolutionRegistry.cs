@@ -20,7 +20,7 @@ public sealed class SolutionRegistry(params Assembly[] assemblies)
             .SelectMany(SafeGetTypes)
             .Where(t => typeof(ISolution).IsAssignableFrom(t) && !t.IsAbstract && !t.IsInterface)
             .Select(TryDescribe)
-            .Where(d => d != null)
+            .Where(d => d is not null)
             .Select(d => d!)
             .OrderBy(d => d.Year)
             .ThenBy(d => d.Day)
@@ -29,11 +29,11 @@ public sealed class SolutionRegistry(params Assembly[] assemblies)
     private static SolutionDescriptor? TryDescribe(Type type)
     {
         SolutionAttribute? attr = type.GetCustomAttribute<SolutionAttribute>();
-        if (attr == null)
+        if (attr is null)
             return null;
 
         MethodInfo? partTwo = type.GetMethod(nameof(ISolution.PartTwo), [typeof(string)]);
-        bool hasPartTwo = partTwo != null && partTwo.DeclaringType == type;
+        bool hasPartTwo = partTwo is not null && partTwo.DeclaringType == type;
 
         return new SolutionDescriptor(attr.Year, attr.Day, () => (ISolution)Activator.CreateInstance(type)!, hasPartTwo);
     }
@@ -46,7 +46,7 @@ public sealed class SolutionRegistry(params Assembly[] assemblies)
         }
         catch (ReflectionTypeLoadException ex)
         {
-            return ex.Types.Where(t => t != null)!;
+            return ex.Types.Where(t => t is not null)!;
         }
     }
 }
