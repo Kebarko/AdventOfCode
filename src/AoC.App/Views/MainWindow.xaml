@@ -83,7 +83,7 @@
     </Window.Resources>
 
     <Grid Margin="5">
-        <TabControl ItemsSource="{Binding Years}">
+        <TabControl ItemsSource="{Binding Years}" SelectedIndex="0">
             <TabControl.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Year}" FontSize="13" Padding="4, 2" />
