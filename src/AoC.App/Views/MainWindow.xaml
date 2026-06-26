@@ -9,14 +9,20 @@
     <Window.Resources>
 
         <DataTemplate DataType="{x:Type vm:PartViewModel}">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Width="320">
-                <Button Command="{Binding RunCommand}"
+            <Grid VerticalAlignment="Center" Margin="0, 0, 12, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        Command="{Binding RunCommand}"
                         Content="{Binding Part}"
                         ContentStringFormat="Run part {0}"
                         Padding="8, 4" Margin="0, 0, 8, 0" />
-                <TextBox Text="{Binding Result}"
+                <TextBox Grid.Column="1"
+                         Text="{Binding Result}"
                          IsReadOnly="True"
-                         Width="150"
                          HorizontalContentAlignment="Right"
                          VerticalContentAlignment="Center">
                     <TextBox.Style>
@@ -30,23 +36,34 @@
                         </Style>
                     </TextBox.Style>
                 </TextBox>
-                <TextBlock Text="{Binding Elapsed}"
+                <TextBlock Grid.Column="2"
+                           Text="{Binding Elapsed}"
                            Foreground="Gray"
                            Width="65"
                            TextAlignment="Right"
                            VerticalAlignment="Center" />
-            </StackPanel>
+            </Grid>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:DayViewModel}">
-            <StackPanel Orientation="Horizontal" Margin="0, 2">
-                <TextBlock Text="{Binding Day, StringFormat='Day {0:D2}'}"
+            <Grid Margin="0, 2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="{Binding Day, StringFormat='Day {0:D2}'}"
                            Width="65"
                            FontWeight="Medium"
                            VerticalAlignment="Center" />
-                <ContentControl Content="{Binding Part1}" />
-                <ContentControl Content="{Binding Part2}" />
-            </StackPanel>
+                <ContentControl Grid.Column="1"
+                                Content="{Binding Part1}"
+                                HorizontalContentAlignment="Stretch" />
+                <ContentControl Grid.Column="3"
+                                Content="{Binding Part2}"
+                                HorizontalContentAlignment="Stretch" />
+            </Grid>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:YearViewModel}">
@@ -56,7 +73,8 @@
                         Command="{Binding RunAllCommand}"
                         HorizontalAlignment="Left"
                         Padding="8, 4" Margin="0, 0, 0, 10" />
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
                     <ItemsControl ItemsSource="{Binding Days}" />
                 </ScrollViewer>
             </DockPanel>
