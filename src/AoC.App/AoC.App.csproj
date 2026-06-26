@@ -8,6 +8,7 @@
         <UseWPF>true</UseWPF>
         <RootNamespace>KE.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
         <AssemblyVersion>1.0.*</AssemblyVersion>
+        <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -21,6 +22,10 @@
         <GenerateAssemblyFileVersionAttribute>False</GenerateAssemblyFileVersionAttribute>
         <GenerateAssemblyInformationalVersionAttribute>False</GenerateAssemblyInformationalVersionAttribute>
     </PropertyGroup>
+
+    <ItemGroup>
+      <Content Include="Resources\icon.ico" />
+    </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\AoC.Core\AoC.Core.csproj" />
