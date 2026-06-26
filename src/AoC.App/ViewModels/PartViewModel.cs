@@ -89,7 +89,7 @@ public sealed class PartViewModel : ViewModelBase
             return;
 
         IsRunning = true;
-        Result = "running...";
+        Result = "...";
         Elapsed = string.Empty;
         HasError = false;
 
@@ -112,8 +112,12 @@ public sealed class PartViewModel : ViewModelBase
 
     private static string Format(TimeSpan timeSpan)
     {
-        return timeSpan.TotalMilliseconds < 1000
-            ? $"{timeSpan.TotalMilliseconds:F2} ms"
-            : $"{timeSpan.TotalSeconds:F2} s";
+        if (timeSpan.TotalMicroseconds < 1000)
+            return $"{timeSpan.TotalMicroseconds:F1} µs";
+
+        if (timeSpan.TotalMilliseconds < 1000)
+            return $"{timeSpan.TotalMilliseconds:F1} ms";
+
+        return $"{timeSpan.TotalSeconds:F1} s";
     }
 }
