@@ -51,6 +51,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0"
                            Text="{Binding Day, StringFormat='Day {0:D2}'}"
@@ -60,9 +61,16 @@
                 <ContentControl Grid.Column="1"
                                 Content="{Binding Part1}"
                                 HorizontalContentAlignment="Stretch" />
-                <ContentControl Grid.Column="3"
+                <ContentControl Grid.Column="2"
                                 Content="{Binding Part2}"
                                 HorizontalContentAlignment="Stretch" />
+                <TextBlock Grid.Column="3"
+                           VerticalAlignment="Center">
+                    <Hyperlink Command="{Binding OpenPuzzleCommand}"
+                               ToolTip="{Binding Url}">
+                        <Run Text="?" />
+                    </Hyperlink>
+                </TextBlock>
             </Grid>
         </DataTemplate>
 
