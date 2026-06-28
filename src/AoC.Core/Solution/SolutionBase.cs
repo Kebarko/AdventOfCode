@@ -30,14 +30,14 @@ public abstract class SolutionBase : ISolution
     /// <summary>
     /// Splits the input string into an array of lines.Empty entries are removed and whitespace is trimmed.
     /// </summary>
-    protected static string[] Lines(string input) =>
-        input.ReplaceLineEndings("\n").Split('\n', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+    protected static string[] Lines(string input, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) =>
+        input.ReplaceLineEndings("\n").Split('\n', options);
 
     /// <summary>
     /// Splits the input string into an array of paragraphs, where paragraphs are separated by two consecutive newlines. Empty entries are removed and whitespace is trimmed.
     /// </summary>
-    protected static string[] Paragraphs(string input) =>
-        input.ReplaceLineEndings("\n").Split("\n\n", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+    protected static string[] Paragraphs(string input, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) =>
+        input.ReplaceLineEndings("\n").Split("\n\n", options);
 
     /// <summary>
     /// Extracts all integers from the input string and returns them as an array of integers.
@@ -50,4 +50,16 @@ public abstract class SolutionBase : ISolution
     /// </summary>
     protected static long[] Longs(string input) =>
         Regex.Matches(input, @"-?\d+").Select(m => long.Parse(m.Value)).ToArray();
+
+    /// <summary>
+    /// Extracts all non-whitespace strings from the input string and returns them as an array of strings.
+    /// </summary>
+    protected static string[] Strings(string input) =>
+        input.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries).ToArray();
+
+    /// <summary>
+    /// Extracts all non-whitespace characters from the input string and returns them as an array of characters.
+    /// </summary>
+    protected static char[] Chars(string input) =>
+        input.Where(c => !char.IsWhiteSpace(c)).ToArray();
 }
