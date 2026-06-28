@@ -5,11 +5,14 @@ namespace KE.AoC.Solutions.Y2025
     [Solution(2025, 1)]
     public sealed class Day01 : SolutionBase
     {
+        /// <summary>
+        /// Calculates the number of times the pointer lands on zero after performing a series of rotations.
+        /// </summary>
         public override object PartOne(string input)
         {
             string[] rotations = Lines(input);
 
-            const int total = 100;
+            const int size = 100;
             int current = 50;
             int zeros = 0;
             foreach (string rotation in rotations)
@@ -20,11 +23,11 @@ namespace KE.AoC.Solutions.Y2025
                 switch (direction)
                 {
                     case 'R':
-                        current = (current + distance) % total;
+                        current = (current + distance) % size;
                         break;
 
                     case 'L':
-                        current = ((current - distance) % total + total) % total;
+                        current = ((current - distance) % size + size) % size;
                         break;
                 }
 
@@ -37,11 +40,14 @@ namespace KE.AoC.Solutions.Y2025
             return zeros;
         }
 
+        /// <summary>
+        /// Calculates the number of times the pointer lands on zero after performing a series of rotations, taking into account multiple full rotations.
+        /// </summary>
         public override object PartTwo(string input)
         {
             string[] rotations = Lines(input);
 
-            const int total = 100;
+            const int size = 100;
             int current = 50;
             int zeros = 0;
             foreach (string rotation in rotations)
@@ -53,25 +59,25 @@ namespace KE.AoC.Solutions.Y2025
                 {
                     case 'R':
                         {
-                            int distToZero = total - current;
+                            int distToZero = size - current;
                             if (distance >= distToZero)
                             {
-                                zeros += 1 + (distance - distToZero) / total;
+                                zeros += 1 + (distance - distToZero) / size;
                             }
 
-                            current = (current + distance) % total;
+                            current = (current + distance) % size;
                             break;
                         }
                     case 'L':
                         {
-                            int distToZero = current == 0 ? total : current;
+                            int distToZero = current == 0 ? size : current;
 
                             if (distance >= distToZero)
                             {
-                                zeros += 1 + (distance - distToZero) / total;
+                                zeros += 1 + (distance - distToZero) / size;
                             }
 
-                            current = ((current - distance) % total + total) % total;
+                            current = ((current - distance) % size + size) % size;
                             break;
                         }
                 }
