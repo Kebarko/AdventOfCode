@@ -14,7 +14,7 @@ public sealed class Day04 : SolutionBase
 
         bool[][] grid = InitializeGrid(lines);
 
-        ICollection<(int i, int j)> rollsToRemove = GetRollsToRemove(grid);
+        List<(int i, int j)> rollsToRemove = GetRollsToRemove(grid);
 
         return rollsToRemove.Count;
     }
@@ -30,7 +30,7 @@ public sealed class Day04 : SolutionBase
 
         int totalRemoved = 0;
 
-        ICollection<(int i, int j)> rollsToRemove;
+        List<(int i, int j)> rollsToRemove;
         while ((rollsToRemove = GetRollsToRemove(grid)).Count > 0)
         {
             totalRemoved += rollsToRemove.Count;
@@ -66,9 +66,9 @@ public sealed class Day04 : SolutionBase
     /// <summary>
     /// Gets the collection of rolls that can be removed from the grid based on the removal criteria.
     /// </summary>
-    private static ICollection<(int i, int j)> GetRollsToRemove(bool[][] grid)
+    private static List<(int i, int j)> GetRollsToRemove(bool[][] grid)
     {
-        var rollsToRemove = new List<(int i, int j)>();
+        List<(int i, int j)> rollsToRemove = [];
 
         for (int i = 0; i < grid.Length; i++)
         {
@@ -110,9 +110,9 @@ public sealed class Day04 : SolutionBase
     /// </summary>
     private static void RemoveRolls(bool[][] grid, IEnumerable<(int i, int j)> rolls)
     {
-        foreach ((int i, int j) roll in rolls)
+        foreach ((int i, int j) in rolls)
         {
-            grid[roll.i][roll.j] = false;
+            grid[i][j] = false;
         }
     }
 
