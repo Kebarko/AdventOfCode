@@ -49,8 +49,7 @@ public sealed class Day06 : SolutionBase
         {
             int value = 0;
             char op = '\0';
-            int multiplier = 1;
-            for (int row = lines.Length - 1; row >= 0; row--)
+            for (int row = 0; row < lines.Length; row++)
             {
                 char ch = lines[row][col];
                 if (ch == '+' || ch == '*')
@@ -59,8 +58,8 @@ public sealed class Day06 : SolutionBase
                 }
                 else if (char.IsDigit(ch))
                 {
-                    value += (ch - '0') * multiplier;
-                    multiplier *= 10;
+                    value *= 10;
+                    value += ch - '0';
                 }
             }
 
