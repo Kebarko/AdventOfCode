@@ -25,7 +25,7 @@ public sealed class Day02 : SolutionBase
     /// <summary>
     /// Calculates the sum of all numbers that meet the criteria defined by the provided function within the specified intervals.
     /// </summary>
-    private object Part(string input, Func<ulong, ulong, IEnumerable<ulong>> findInvalidIds)
+    private static ulong Part(string input, Func<ulong, ulong, IEnumerable<ulong>> findInvalidIds)
     {
         string[] intervals = input.Trim().Split(',');
 
