@@ -24,7 +24,7 @@ public sealed class Day03 : SolutionBase
     /// <summary>
     /// Calculates the sum of the maximum bank values that can be formed by selecting a specified number of digits from each bank in the input.
     /// </summary>
-    private static object Part(string input, int digits)
+    private static ulong Part(string input, int digits)
     {
         string[] banks = Lines(input);
 
