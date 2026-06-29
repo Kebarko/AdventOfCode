@@ -5,9 +5,9 @@ namespace KE.AoC.Solutions.Common;
 /// <summary>
 /// Represents an interval of long integers with a start and end value. Boundaries are inclusive.
 /// </summary>
-internal readonly record struct LongInterval : IComparable<LongInterval>
+internal readonly partial record struct LongInterval : IComparable<LongInterval>
 {
-    private static readonly Regex intervalRegex = new Regex(@"^\s*(-?\d+)\s*-\s*(-?\d+)\s*$", RegexOptions.Compiled);
+    private static readonly Regex intervalRegex = GetIntervalRegex();
 
     /// <summary>
     /// Gets the start value of the interval.
@@ -142,4 +142,7 @@ internal readonly record struct LongInterval : IComparable<LongInterval>
         result.Add(tmp);
         return result;
     }
+
+    [GeneratedRegex(@"^\s*(-?\d+)\s*-\s*(-?\d+)\s*$", RegexOptions.Compiled)]
+    private static partial Regex GetIntervalRegex();
 }
