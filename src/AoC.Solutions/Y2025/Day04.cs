@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using KE.AoC.Solutions.Common;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -10,13 +11,10 @@ public sealed class Day04 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        string[] lines = Lines(input);
+        Grid<bool> grid = Grid.OfBools(input, '@');
 
-        bool[][] grid = InitializeGrid(lines);
-
-        List<(int i, int j)> rollsToRemove = GetRollsToRemove(grid);
-
-        return rollsToRemove.Count;
+        return grid.Cells()
+            .Count(cell => cell.Value && grid.Neighbours8(cell.X, cell.Y).Count(cell => cell.Value) < 4);
     }
 
     /// <summary>
@@ -24,103 +22,52 @@ public sealed class Day04 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        string[] lines = Lines(input);
+        Grid<bool> grid = Grid.OfBools(input, '@');
+        Grid<int> counts = new(grid.Width, grid.Height);
+        Queue<(int X, int Y)> queue = new();
+        int removed = 0;
 
-        bool[][] grid = InitializeGrid(lines);
-
-        int totalRemoved = 0;
-
-        List<(int i, int j)> rollsToRemove;
-        while ((rollsToRemove = GetRollsToRemove(grid)).Count > 0)
+        // Count the number of neighboring rolls for each roll in the grid
+        foreach ((int X, int Y, bool IsRoll) in grid.Cells())
         {
-            totalRemoved += rollsToRemove.Count;
-
-            RemoveRolls(grid, rollsToRemove);
-        }
-
-        return totalRemoved;
-    }
-
-    /// <summary>
-    /// Initializes the grid based on the input lines, where '@' represents an accessible cell and any other character represents an inaccessible cell.
-    /// </summary>
-    private static bool[][] InitializeGrid(string[] lines)
-    {
-        bool[][] grid = new bool[lines.Length][];
-
-        for (int i = 0; i < lines.Length; i++)
-        {
-            string line = lines[i];
-
-            grid[i] = new bool[line.Length];
-
-            for (int j = 0; j < line.Length; j++)
+            if (IsRoll)
             {
-                grid[i][j] = line[j] == '@';
+                counts[X, Y] = grid.Neighbours8(X, Y).Count(cell => cell.Value);
             }
         }
 
-        return grid;
-    }
-
-    /// <summary>
-    /// Gets the collection of rolls that can be removed from the grid based on the removal criteria.
-    /// </summary>
-    private static List<(int i, int j)> GetRollsToRemove(bool[][] grid)
-    {
-        List<(int i, int j)> rollsToRemove = [];
-
-        for (int i = 0; i < grid.Length; i++)
+        // Enqueue all rolls that can be removed (i.e., those with fewer than 4 neighboring rolls) and mark them as removed
+        foreach ((int X, int Y, bool IsRoll) in grid.Cells())
         {
-            for (int j = 0; j < grid[i].Length; j++)
+            if (IsRoll && counts[X, Y] < 4)
             {
-                if (grid[i][j] && IsRemovable(grid, i, j))
+                queue.Enqueue((X, Y));
+                grid[X, Y] = false;
+                removed++;
+            }
+        }
+
+        // Process the queue of removable rolls, updating the counts of neighboring rolls and enqueuing any new removable rolls as they are found
+        while (queue.Count > 0)
+        {
+            (int X, int Y) cell = queue.Dequeue();
+
+            foreach ((int X, int Y, bool IsRoll) nb in grid.Neighbours8(cell.X, cell.Y))
+            {
+                if (nb.IsRoll)
                 {
-                    rollsToRemove.Add((i, j));
+                    counts[nb.X, nb.Y]--;
+
+                    if (counts[nb.X, nb.Y] < 4)
+                    {
+                        queue.Enqueue((nb.X, nb.Y));
+                        grid[nb.X, nb.Y] = false;
+                        removed++;
+                    }
                 }
             }
         }
 
-        return rollsToRemove;
-    }
-
-    /// <summary>
-    /// Checks if the roll at (i, j) is removable based on the number of adjacent rolls. A roll is considered removable if it has fewer than 4 adjacent rolls.
-    /// </summary>
-    private static bool IsRemovable(bool[][] grid, int i, int j)
-    {
-        int adjacent = 0;
-
-        for (int a = i - 1; a <= i + 1; a++)
-        {
-            for (int b = j - 1; b <= j + 1; b++)
-            {
-                if (!(a == i && b == j) && IsValid(grid, a, b) && grid[a][b])
-                {
-                    adjacent++;
-                }
-            }
-        }
-
-        return adjacent < 4;
-    }
-
-    /// <summary>
-    /// Removes the specified rolls from the grid by setting the corresponding cells to false.
-    /// </summary>
-    private static void RemoveRolls(bool[][] grid, IEnumerable<(int i, int j)> rolls)
-    {
-        foreach ((int i, int j) in rolls)
-        {
-            grid[i][j] = false;
-        }
-    }
-
-    /// <summary>
-    /// Checks if the given indices are valid within the grid boundaries.
-    /// </summary>
-    private static bool IsValid(bool[][] grid, int i, int j)
-    {
-        return i >= 0 && j >= 0 && i < grid.Length && j < grid[i].Length;
+        return removed;
     }
 }
