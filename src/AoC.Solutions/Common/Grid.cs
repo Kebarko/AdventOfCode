@@ -177,7 +177,7 @@ internal sealed class Grid<T>(int width, int height)
     /// <summary>
     /// Returns the coordinates of the 4 orthogonal neighbouring cells (up, down, left, right) of the cell at (x, y) that are within the bounds of the grid.
     /// </summary>
-    public IEnumerable<(int X, int Y)> Neighbours4(int x, int y)
+    public IEnumerable<(int X, int Y, T Value)> Neighbours4(int x, int y)
     {
         return Step(x, y, OrthogonalOffsets);
     }
@@ -185,21 +185,21 @@ internal sealed class Grid<T>(int width, int height)
     /// <summary>
     /// Returns the coordinates of the 8 neighbouring cells (including diagonals) of the cell at (x, y) that are within the bounds of the grid.
     /// </summary>
-    public IEnumerable<(int X, int Y)> Neighbours8(int x, int y)
+    public IEnumerable<(int X, int Y, T Value)> Neighbours8(int x, int y)
     {
         return Step(x, y, AllOffsets);
     }
 
-    private IEnumerable<(int X, int Y)> Step(int x, int y, (int dx, int dy)[] offsets)
+    private IEnumerable<(int X, int Y, T Value)> Step(int x, int y, (int dx, int dy)[] offsets)
     {
         foreach ((int dx, int dy) in offsets)
         {
             int nx = x + dx;
             int ny = y + dy;
 
-            if (InBounds(nx, ny))
+            if (TryGet(nx, ny, out T? value))
             {
-                yield return (nx, ny);
+                yield return (nx, ny, value);
             }
         }
     }
