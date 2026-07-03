@@ -265,6 +265,43 @@ internal sealed class Grid<T>(int width, int height)
         }
         return sb.ToString();
     }
+
+    /// <summary>
+    /// Renders the grid to a string using a selector function to convert each cell to a string, with an optional separator between cells.
+    /// </summary>
+    public string Render(Func<T, string> selector, string separator = " ")
+    {
+        var rendered = new string[Height, Width];
+        int width = 0;
+
+        for (int y = 0; y < Height; y++)
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                string value = selector(cells[y, x]);
+                rendered[y, x] = value;
+                if (value.Length > width)
+                    width = value.Length;
+            }
+        }
+
+        var sb = new StringBuilder(Height * (Width * (width + separator.Length) + 1));
+        for (int y = 0; y < Height; y++)
+        {
+            for (int x = 0; x < Width; x++)
+            {
+                if (x > 0)
+                    sb.Append(separator);
+
+                sb.Append(rendered[y, x].PadLeft(width));
+            }
+
+            if (y < Height - 1)
+                sb.Append('\n');
+        }
+
+        return sb.ToString();
+    }
 }
 
 /// <summary>
