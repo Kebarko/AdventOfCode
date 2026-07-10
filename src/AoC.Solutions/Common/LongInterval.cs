@@ -22,7 +22,7 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
     /// <summary>
     /// Gets the length of the interval.
     /// </summary>
-    public ulong Length => checked((ulong)End - (ulong)Start + 1);
+    public ulong Length => checked(unchecked((ulong)End - (ulong)Start) + 1);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LongInterval"/> struct with the specified start and end values.
@@ -143,6 +143,6 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
         return result;
     }
 
-    [GeneratedRegex(@"^\s*(-?\d+)\s*-\s*(-?\d+)\s*$", RegexOptions.Compiled)]
+    [GeneratedRegex(@"^\s*(-?\d+)\s*-\s*(-?\d+)\s*$")]
     private static partial Regex GetIntervalRegex();
 }
