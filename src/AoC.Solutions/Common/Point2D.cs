@@ -5,7 +5,7 @@ namespace KE.AoC.Solutions.Common;
 /// <summary>
 /// A generic 2D point structure that can hold coordinates of any numeric type.
 /// </summary>
-internal readonly record struct Point2D<T>(T X, T Y) where T : INumber<T>
+public readonly record struct Point2D<T>(T X, T Y) where T : INumber<T>
 {
     /// <summary>
     /// Calculates the Euclidean distance between this point and another point.

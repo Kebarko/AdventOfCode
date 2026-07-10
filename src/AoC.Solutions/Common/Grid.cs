@@ -6,7 +6,7 @@ namespace KE.AoC.Solutions.Common;
 /// <summary>
 /// A generic grid class that represents a 2D grid of elements of type T.
 /// </summary>
-internal sealed class Grid<T>(int width, int height)
+public sealed class Grid<T>(int width, int height)
 {
     private readonly T[,] cells = new T[height, width];
 
@@ -307,7 +307,7 @@ internal sealed class Grid<T>(int width, int height)
 /// <summary>
 /// A static helper class for creating grids of specific types.
 /// </summary>
-internal static class Grid
+public static class Grid
 {
     /// <summary>
     /// Creates a grid of characters from a string representation.

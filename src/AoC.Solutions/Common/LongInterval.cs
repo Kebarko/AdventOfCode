@@ -5,7 +5,7 @@ namespace KE.AoC.Solutions.Common;
 /// <summary>
 /// Represents an interval of long integers with a start and end value. Boundaries are inclusive.
 /// </summary>
-internal readonly partial record struct LongInterval : IComparable<LongInterval>
+public readonly partial record struct LongInterval : IComparable<LongInterval>
 {
     private static readonly Regex intervalRegex = GetIntervalRegex();
 

@@ -5,7 +5,7 @@ namespace KE.AoC.Solutions.Common;
 /// <summary>
 /// Provides common mathematical utility methods.
 /// </summary>
-internal static class MathUtils
+public static class MathUtils
 {
     /// <summary>
     /// Calculates the number of digits in the given value.
