@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Collections;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -12,8 +13,6 @@ public sealed class Day09 : SolutionBase
     public override object PartOne(string input)
     {
         List<Point2D<int>> points = ParsePoints(input);
-
-        ValidatePolygon(points);
 
         return points
             .SelectMany((p, i) => points.Skip(i + 1), Rectangle.FromCorners)
@@ -28,12 +27,12 @@ public sealed class Day09 : SolutionBase
     {
         List<Point2D<int>> points = ParsePoints(input);
 
-        ValidatePolygon(points);
+        Polygon polygon = new(points);
 
         return points
             .SelectMany((p, i) => points.Skip(i + 1), Rectangle.FromCorners)
             .OrderByDescending(rectangle => rectangle.Area)
-            .First(rectangle => IsRectangleInsidePolygon(rectangle, points))
+            .First(rectangle => IsRectangleInsidePolygon(rectangle, polygon))
             .Area;
     }
 
@@ -52,28 +51,9 @@ public sealed class Day09 : SolutionBase
     }
 
     /// <summary>
-    /// Validates that the given polygon is a rectilinear polygon with at least 4 vertices.
-    /// </summary>
-    private static void ValidatePolygon(List<Point2D<int>> polygon)
-    {
-        int n = polygon.Count;
-
-        if (n < 4)
-            throw new ArgumentException("Polygon needs at least 4 vertices.");
-
-        for (int i = 0; i < n; i++)
-        {
-            Edge edge = new(polygon[i], polygon[(i + 1) % n]);
-
-            if (!edge.IsHorizontal && !edge.IsVertical)
-                throw new ArgumentException($"Polygon edge {i} is not axis-aligned. Polygon must be rectilinear.");
-        }
-    }
-
-    /// <summary>
     /// Checks if a given rectangle is entirely contained within a polygon.
     /// </summary>
-    private static bool IsRectangleInsidePolygon(Rectangle rectangle, List<Point2D<int>> polygon)
+    private static bool IsRectangleInsidePolygon(Rectangle rectangle, Polygon polygon)
     {
         // Every corner must be inside or on the polygon boundary.
         foreach (Point2D<int> corner in rectangle.AllCorners)
@@ -83,10 +63,9 @@ public sealed class Day09 : SolutionBase
         }
 
         // No polygon edge may cut throught the rectangle.
-        int n = polygon.Count;
-        for (int i = 0; i < n; i++)
+        foreach (Edge edge in polygon)
         {
-            if (EdgeCrossesRectangleInterior(new Edge(polygon[i], polygon[(i + 1) % n]), rectangle))
+            if (EdgeCrossesRectangleInterior(edge, rectangle))
                 return false;
         }
 
@@ -96,34 +75,32 @@ public sealed class Day09 : SolutionBase
     /// <summary>
     /// Checks if a given vertex is inside or on the boundary of a polygon.
     /// </summary>
-    private static bool IsVertexInPolygon(Point2D<int> vertex, List<Point2D<int>> polygon)
+    private static bool IsVertexInPolygon(Point2D<int> vertex, Polygon polygon)
     {
-        int n = polygon.Count;
         bool inside = false;
-        for (int i = 0; i < n; i++)
-        {
-            Edge edge = new(polygon[i], polygon[(i + 1) % n]);
 
+        foreach (Edge edge in polygon)
+        {
             // Check if the vertex lies exactly on the edge. If it does, it's considered inside.
             if (IsVertexOnEdge(vertex, edge))
                 return true;
 
             // Check if the edge is either completely above or below the vertex.
             // If it is, it cannot intersect with a horizontal ray extending to the right from the vertex.
-            if (vertex.Y < Math.Min(edge.Vertex1.Y, edge.Vertex2.Y) ||
-                vertex.Y > Math.Max(edge.Vertex1.Y, edge.Vertex2.Y))
+            if (vertex.Y < edge.MinY || vertex.Y > edge.MaxY)
                 continue;
 
             // Check if the ray cross this edge to the right of the vertex.
-            long dy = edge.Vertex1.Y - edge.Vertex2.Y;
-            long dx = edge.Vertex1.X - edge.Vertex2.X;
-            long lhs = (vertex.X - edge.Vertex1.X) * dy;
-            long rhs = (vertex.Y - edge.Vertex1.Y) * dx;
-            bool intersectsToTheRight = dy > 0 ? lhs < rhs : lhs > rhs;
-
-            // If the ray intersects the edge to the right of the vertex, toggle the inside status.
-            if (intersectsToTheRight)
-                inside = !inside;
+            if (edge.IsHorizontal)
+            {
+                if (vertex.Y == edge.Vertex1.Y && vertex.X < edge.MinX)
+                    inside = !inside;
+            }
+            else if (edge.IsVertical)
+            {
+                if (vertex.X < edge.Vertex1.X)
+                    inside = !inside;
+            }
         }
 
         return inside;
@@ -138,18 +115,14 @@ public sealed class Day09 : SolutionBase
         {
             // Check if the vertex's y-coordinate matches the edge's y-coordinate
             // and if the vertex's x-coordinate is within the edge's x-range.
-            return vertex.Y == edge.Vertex1.Y &&
-                vertex.X >= Math.Min(edge.Vertex1.X, edge.Vertex2.X) &&
-                vertex.X <= Math.Max(edge.Vertex1.X, edge.Vertex2.X);
+            return vertex.Y == edge.Vertex1.Y && vertex.X >= edge.MinX && vertex.X <= edge.MaxX;
         }
 
         if (edge.IsVertical)
         {
             // Check if the vertex's x-coordinate matches the edge's x-coordinate
             // and if the vertex's y-coordinate is within the edge's y-range.
-            return vertex.X == edge.Vertex1.X &&
-                vertex.Y >= Math.Min(edge.Vertex1.Y, edge.Vertex2.Y) &&
-                vertex.Y <= Math.Max(edge.Vertex1.Y, edge.Vertex2.Y);
+            return vertex.X == edge.Vertex1.X && vertex.Y >= edge.MinY && vertex.Y <= edge.MaxY;
         }
 
         throw new ArgumentException("Edge must be either horizontal or vertical.");
@@ -164,13 +137,11 @@ public sealed class Day09 : SolutionBase
         {
             // Check if the edge is either above or below the rectangle's interior.
             // If it is, it cannot cross the rectangle's interior.
-            if (edge.Vertex1.Y <= rectangle.MinY ||
-                edge.Vertex1.Y >= rectangle.MaxY)
+            if (edge.Vertex1.Y <= rectangle.MinY || edge.Vertex1.Y >= rectangle.MaxY)
                 return false;
 
             // Check if the edge's x-range overlaps with the rectangle's x-range.
-            return Math.Min(edge.Vertex1.X, edge.Vertex2.X) < rectangle.MaxX &&
-                Math.Max(edge.Vertex1.X, edge.Vertex2.X) > rectangle.MinX;
+            return edge.MinX < rectangle.MaxX && edge.MaxX > rectangle.MinX;
 
         }
 
@@ -178,32 +149,100 @@ public sealed class Day09 : SolutionBase
         {
             // Check if the edge is either to the left or right of the rectangle's interior.
             // If it is, it cannot cross the rectangle's interior.
-            if (edge.Vertex1.X <= rectangle.MinX ||
-                edge.Vertex1.X >= rectangle.MaxX)
+            if (edge.Vertex1.X <= rectangle.MinX || edge.Vertex1.X >= rectangle.MaxX)
                 return false;
 
             // Check if the edge's y-range overlaps with the rectangle's y-range.
-            return Math.Min(edge.Vertex1.Y, edge.Vertex2.Y) < rectangle.MaxY &&
-                Math.Max(edge.Vertex1.Y, edge.Vertex2.Y) > rectangle.MinY;
+            return edge.MinY < rectangle.MaxY && edge.MaxY > rectangle.MinY;
         }
 
         throw new ArgumentException("Edge must be either horizontal or vertical.");
     }
 
     /// <summary>
+    /// Represents a rectilinear polygon defined by a list of vertices in 2D space.
+    /// </summary>
+    private sealed class Polygon : IEnumerable<Edge>
+    {
+        private readonly List<Edge> edges;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Polygon"/> class with a list of vertices.
+        /// </summary>
+        public Polygon(List<Point2D<int>> vertices)
+        {
+            int n = vertices.Count;
+            if (n < 4)
+                throw new ArgumentException("Polygon needs at least 4 vertices.");
+
+            edges = new List<Edge>(n);
+
+            for (int i = 0; i < n; i++)
+            {
+                Edge edge = new(vertices[i], vertices[(i + 1) % n]);
+
+                if (!edge.IsHorizontal && !edge.IsVertical)
+                    throw new ArgumentException($"Polygon edge {i} is not axis-aligned. Polygon must be rectilinear.");
+
+                edges.Add(edge);
+            }
+        }
+
+        public IEnumerator<Edge> GetEnumerator()
+        {
+            return edges.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+    /// <summary>
     /// Represents an edge defined by two vertices in 2D space.
     /// </summary>
-    private readonly record struct Edge(Point2D<int> Vertex1, Point2D<int> Vertex2)
+    private sealed class Edge(Point2D<int> vertex1, Point2D<int> vertex2)
     {
+        /// <summary>
+        /// Gets the first vertex of the edge.
+        /// </summary>
+        public Point2D<int> Vertex1 { get; } = vertex1;
+
+        /// <summary>
+        /// Gets the second vertex of the edge.
+        /// </summary>
+        public Point2D<int> Vertex2 { get; } = vertex2;
+
+        /// <summary>
+        /// Gets the minimum X-coordinate of the edge (the smaller X-coordinate of the two vertices).
+        /// </summary>
+        public int MinX { get; } = Math.Min(vertex1.X, vertex2.X);
+
+        /// <summary>
+        /// Gets the minimum Y-coordinate of the edge (the smaller Y-coordinate of the two vertices).
+        /// </summary>
+        public int MinY { get; } = Math.Min(vertex1.Y, vertex2.Y);
+
+        /// <summary>
+        /// Gets the maximum X-coordinate of the edge (the larger X-coordinate of the two vertices).
+        /// </summary>
+        public int MaxX { get; } = Math.Max(vertex1.X, vertex2.X);
+
+        /// <summary>
+        /// Gets the maximum Y-coordinate of the edge (the larger Y-coordinate of the two vertices).
+        /// </summary>
+        public int MaxY { get; } = Math.Max(vertex1.Y, vertex2.Y);
+
         /// <summary>
         /// Indicates whether the edge is horizontal (i.e., both vertices have the same Y-coordinate).
         /// </summary>
-        public bool IsHorizontal => Vertex1.Y == Vertex2.Y;
+        public bool IsHorizontal { get; } = vertex1.Y == vertex2.Y;
 
         /// <summary>
         /// Indicates whether the edge is vertical (i.e., both vertices have the same X-coordinate).
         /// </summary>
-        public bool IsVertical => Vertex1.X == Vertex2.X;
+        public bool IsVertical { get; } = vertex1.X == vertex2.X;
     }
 
     /// <summary>
@@ -225,7 +264,7 @@ public sealed class Day09 : SolutionBase
         /// <summary>
         /// Gets the area of the rectangle.
         /// </summary>
-        public long Area => (MaxX - MinX + 1L) * (MaxY - MinY + 1L);
+        public long Area { get; } = (MaxX - MinX + 1L) * (MaxY - MinY + 1L);
 
         /// <summary>
         /// Creates a rectangle from two corner points, ensuring that the minimum and maximum coordinates are correctly assigned.
