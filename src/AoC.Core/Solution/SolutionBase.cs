@@ -28,7 +28,7 @@ public abstract class SolutionBase : ISolution
     // ---- Common parsing helpers used by most puzzles ----
 
     /// <summary>
-    /// Splits the input string into an array of lines.Empty entries are removed and whitespace is trimmed.
+    /// Splits the input string into an array of lines. Empty entries are removed and whitespace is trimmed.
     /// </summary>
     protected static string[] Lines(string input, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) =>
         input.ReplaceLineEndings("\n").Split('\n', options);
