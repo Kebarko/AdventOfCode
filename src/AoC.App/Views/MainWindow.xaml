@@ -2,11 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:KE.AoC.App.ViewModels"
+        xmlns:conv="clr-namespace:KE.AoC.App.Converters"
         Title="Advent of Code Runner"
         WindowStartupLocation="CenterScreen"
         MinWidth="747" MinHeight="879"
         SizeToContent="WidthAndHeight">
     <Window.Resources>
+        <conv:ElapsedToStringConverter x:Key="ElapsedToString" />
+        <conv:ElapsedToBrushConverter x:Key="ElapsedToBrush" />
 
         <DataTemplate DataType="{x:Type vm:PartViewModel}">
             <Grid VerticalAlignment="Center" Margin="0, 0, 12, 0">
@@ -37,8 +40,8 @@
                     </TextBox.Style>
                 </TextBox>
                 <TextBlock Grid.Column="2"
-                           Text="{Binding Elapsed}"
-                           Foreground="Gray"
+                           Text="{Binding Elapsed, Converter={StaticResource ElapsedToString}}"
+                           Foreground="{Binding Elapsed, Converter={StaticResource ElapsedToBrush}}"
                            Width="65"
                            TextAlignment="Right"
                            VerticalAlignment="Center" />

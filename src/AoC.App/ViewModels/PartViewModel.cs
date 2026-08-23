@@ -14,7 +14,7 @@ public sealed class PartViewModel : ViewModelBase
     private readonly SolutionRunner runner;
     private bool isRunning;
     private string result = string.Empty;
-    private string elapsed = string.Empty;
+    private TimeSpan elapsed = TimeSpan.Zero;
     private bool hasError;
 
     /// <summary>
@@ -46,9 +46,9 @@ public sealed class PartViewModel : ViewModelBase
     }
 
     /// <summary>
-    /// Gets or sets the elapsed time for the solution execution, formatted as a string.
+    /// Gets or sets the elapsed time for the solution execution.
     /// </summary>
-    public string Elapsed
+    public TimeSpan Elapsed
     {
         get => elapsed;
         set { SetProperty(ref elapsed, value); }
@@ -90,7 +90,7 @@ public sealed class PartViewModel : ViewModelBase
 
         IsRunning = true;
         Result = "...";
-        Elapsed = string.Empty;
+        Elapsed = TimeSpan.Zero;
         HasError = false;
 
         PartResult result = await runner.RunAsync(() => inputProvider.GetInput(descriptor.Year, descriptor.Day), descriptor.SolutionFactory, Part);
@@ -99,7 +99,7 @@ public sealed class PartViewModel : ViewModelBase
         {
             Result = result.Output?.ToString() ?? "<empty>";
             if (result.Elapsed is not null)
-                Elapsed = Format(result.Elapsed.Value);
+                Elapsed = result.Elapsed.Value;
         }
         else
         {
@@ -108,16 +108,5 @@ public sealed class PartViewModel : ViewModelBase
         }
 
         IsRunning = false;
-    }
-
-    private static string Format(TimeSpan timeSpan)
-    {
-        if (timeSpan.TotalMicroseconds < 1000)
-            return $"{timeSpan.TotalMicroseconds:F1} µs";
-
-        if (timeSpan.TotalMilliseconds < 1000)
-            return $"{timeSpan.TotalMilliseconds:F1} ms";
-
-        return $"{timeSpan.TotalSeconds:F1} s";
     }
 }
