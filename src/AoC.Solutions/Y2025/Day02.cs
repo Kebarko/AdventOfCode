@@ -15,11 +15,11 @@ public sealed class Day02 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the sum of all numbers within the specified intervals that can be divided into equal blocks of digits.
+    /// Calculates the sum of all numbers within the specified intervals that can be divided into equal parts of digits.
     /// </summary>
     public override object PartTwo(string input)
     {
-        return Part(input, FindNumbersWithEqualBlocks);
+        return Part(input, FindNumbersWithEqualParts);
     }
 
     /// <summary>
@@ -61,13 +61,13 @@ public sealed class Day02 : SolutionBase
 
             int halfDigits = digits / 2;
 
-            ulong halfMin = (ulong)Math.Pow(10, halfDigits - 1);
-            ulong halfMax = (ulong)Math.Pow(10, halfDigits) - 1;
-            ulong multiplier = (ulong)Math.Pow(10, halfDigits) + 1;
+            ulong min = (ulong)Math.Pow(10, halfDigits - 1);
+            ulong max = (ulong)Math.Pow(10, halfDigits) - 1;
+            ulong mul = (ulong)Math.Pow(10, halfDigits) + 1;
 
-            for (ulong half = halfMin; half <= halfMax; half++)
+            for (ulong val = min; val <= max; val++)
             {
-                ulong number = half * multiplier;
+                ulong number = val * mul;
                 if (number >= lower && number <= upper)
                 {
                     yield return number;
@@ -77,50 +77,43 @@ public sealed class Day02 : SolutionBase
     }
 
     /// <summary>
-    /// Finds all numbers within the specified range that can be divided into equal blocks of digits.
+    /// Finds all numbers within the specified range that can be divided into equal parts of digits.
     /// </summary>
-    private static IEnumerable<ulong> FindNumbersWithEqualBlocks(ulong lower, ulong upper)
+    private static IEnumerable<ulong> FindNumbersWithEqualParts(ulong lower, ulong upper)
     {
+        HashSet<ulong> result = [];
+
         if (lower > upper)
-            yield break;
+            return result;
 
-        for (ulong number = lower; number <= upper; number++)
+        int lowerDigits = MathUtils.Digits(lower);
+        int upperDigits = MathUtils.Digits(upper);
+
+        for (int digits = lowerDigits; digits <= upperDigits; digits++)
         {
-            int totalDigits = MathUtils.Digits(number);
-            int lowerHalfDigits = totalDigits / 2;
-            bool found = false;
-
-            for (int digits = 1; digits <= lowerHalfDigits; digits++)
+            foreach (int partDigits in MathUtils.Divisors(digits))
             {
-                if (totalDigits % digits != 0)
+                if (partDigits == digits)
                     continue;
 
-                ulong divisor = (ulong)Math.Pow(10, digits);
-                ulong firstPart = number % divisor;
-                bool allPartsEqual = true;
-                ulong tmp = number;
-                while (tmp > 0)
+                ulong min = (ulong)Math.Pow(10, partDigits - 1);
+                ulong max = (ulong)Math.Pow(10, partDigits) - 1;
+                ulong mul = (ulong)Math.Pow(10, partDigits);
+
+                for (ulong val = min; val <= max; val++)
                 {
-                    ulong currentPart = tmp % divisor;
-                    if (currentPart != firstPart)
+                    ulong number = 0;
+                    for (int rep = 1; rep <= digits / partDigits; rep++)
                     {
-                        allPartsEqual = false;
-                        break;
+                        number = number * mul + val;
                     }
-                    tmp /= divisor;
-                }
 
-                if (allPartsEqual)
-                {
-                    found = true;
-                    break;
+                    if (number >= lower && number <= upper)
+                        result.Add(number);
                 }
-            }
-
-            if (found)
-            {
-                yield return number;
             }
         }
+
+        return result;
     }
 }
