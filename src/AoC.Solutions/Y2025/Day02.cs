@@ -69,9 +69,7 @@ public sealed class Day02 : SolutionBase
             {
                 ulong number = val * mul;
                 if (number >= lower && number <= upper)
-                {
                     yield return number;
-                }
             }
         }
     }
@@ -107,6 +105,9 @@ public sealed class Day02 : SolutionBase
                     {
                         number = number * mul + val;
                     }
+
+                    if (number > upper)
+                        break;
 
                     if (number >= lower && number <= upper)
                         result.Add(number);
