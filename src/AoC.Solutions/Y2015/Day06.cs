@@ -140,9 +140,6 @@ public sealed class Day06 : SolutionBase
         List<Instruction> instructions = [];
         foreach (ReadOnlySpan<char> line in input.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             instructions.Add(ParseInstruction(line));
         }
 

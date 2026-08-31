@@ -10,7 +10,7 @@ public sealed class Day03 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        return Part(input, 2);
+        return Part(input.AsSpan(), 2);
     }
 
     /// <summary>
@@ -18,20 +18,18 @@ public sealed class Day03 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        return Part(input, 12);
+        return Part(input.AsSpan(), 12);
     }
 
     /// <summary>
     /// Calculates the sum of the maximum bank values that can be formed by selecting a specified number of digits from each bank in the input.
     /// </summary>
-    private static ulong Part(string input, int digits)
+    private static ulong Part(ReadOnlySpan<char> span, int digits)
     {
-        string[] banks = Lines(input);
-
         ulong result = 0;
-        foreach (string bank in banks)
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
         {
-            result += CalculateMaxBankValue(ParseBank(bank), digits);
+            result += CalculateMaxBankValue(ParseBank(line), digits);
         }
 
         return result;
@@ -40,9 +38,16 @@ public sealed class Day03 : SolutionBase
     /// <summary>
     /// Parses a string representation of a bank into an array of integers.
     /// </summary>
-    private static int[] ParseBank(string bank)
+    private static int[] ParseBank(ReadOnlySpan<char> span)
     {
-        return bank.Select(c => c - '0').ToArray();
+        int[] result = new int[span.Length];
+
+        for (int i = 0; i < span.Length; i++)
+        {
+            result[i] = span[i] - '0';
+        }
+
+        return result;
     }
 
     /// <summary>

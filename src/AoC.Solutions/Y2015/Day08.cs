@@ -20,9 +20,6 @@ public sealed class Day08 : SolutionBase
 
         foreach (ReadOnlySpan<char> line in input.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             totalCode += line.Length;
 
             for (int i = 1; i < line.Length - 1; i++) // skip surrounding double quotes
@@ -52,9 +49,6 @@ public sealed class Day08 : SolutionBase
 
         foreach (ReadOnlySpan<char> line in input.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             totalCode += line.Length;
 
             totalEncoded += 2; // new surrounding double quotes

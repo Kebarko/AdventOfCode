@@ -11,7 +11,7 @@ public sealed class Day05 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        ParseInput(input, out ICollection<LongInterval> freshIntervals, out ISet<long> ingredients);
+        ParseInput(input.AsSpan(), out ICollection<LongInterval> freshIntervals, out ISet<long> ingredients);
 
         int freshCount = 0;
 
@@ -35,7 +35,7 @@ public sealed class Day05 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        ParseInput(input, out ICollection<LongInterval>? freshIntervals, out _);
+        ParseInput(input.AsSpan(), out ICollection<LongInterval>? freshIntervals, out _);
 
         return LongInterval.Merge(freshIntervals)
             .Sum(interval => (double)interval.Length);
@@ -44,14 +44,12 @@ public sealed class Day05 : SolutionBase
     /// <summary>
     /// Parses the input string into a collection of intervals and a set of ingredients.
     /// </summary>
-    private static void ParseInput(string input, out ICollection<LongInterval> freshIntervals, out ISet<long> ingredients)
+    private static void ParseInput(ReadOnlySpan<char> span, out ICollection<LongInterval> freshIntervals, out ISet<long> ingredients)
     {
-        string[] lines = Lines(input);
-
         freshIntervals = [];
         ingredients = new HashSet<long>();
 
-        foreach (string line in lines)
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
         {
             if (LongInterval.TryParse(line, out LongInterval longInterval))
             {

@@ -13,7 +13,7 @@ public sealed class Day10 : SolutionBase
     /// <returns>The length of the resulting string after 40 iterations.</returns>
     public override object PartOne(string input)
     {
-        return LookAndSay(input.Trim(), 40).Length;
+        return LookAndSay(input, 40).Length;
     }
 
     /// <summary>
@@ -23,7 +23,7 @@ public sealed class Day10 : SolutionBase
     /// <returns>The length of the resulting string after 50 iterations.</returns>
     public override object PartTwo(string input)
     {
-        return LookAndSay(input.Trim(), 50).Length;
+        return LookAndSay(input, 50).Length;
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ public sealed class Day02 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        return Part(input, FindNumbersWithEqualHalves);
+        return Part(input.AsSpan(), FindNumbersWithEqualHalves);
     }
 
     /// <summary>
@@ -19,23 +19,22 @@ public sealed class Day02 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        return Part(input, FindNumbersWithEqualParts);
+        return Part(input.AsSpan(), FindNumbersWithEqualParts);
     }
 
     /// <summary>
     /// Calculates the sum of all numbers that meet the criteria defined by the provided function within the specified intervals.
     /// </summary>
-    private static ulong Part(string input, Func<ulong, ulong, IEnumerable<ulong>> findInvalidIds)
+    private static ulong Part(ReadOnlySpan<char> span, Func<ulong, ulong, IEnumerable<ulong>> findInvalidIds)
     {
-        string[] intervals = input.Trim().Split(',');
-
         ulong result = 0;
-        foreach (string interval in intervals)
+        foreach (Range range in span.Split(','))
         {
-            string[] bounds = interval.Split('-');
+            ReadOnlySpan<char> interval = span[range];
+            int dash = interval.IndexOf('-');
 
-            ulong lower = ulong.Parse(bounds[0]);
-            ulong upper = ulong.Parse(bounds[1]);
+            ulong lower = ulong.Parse(interval[..dash]);
+            ulong upper = ulong.Parse(interval[(dash + 1)..]);
 
             result += (ulong)findInvalidIds(lower, upper).Sum(x => (decimal)x);
         }

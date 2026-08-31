@@ -12,7 +12,7 @@ public sealed class Day07 : SolutionBase
     /// <returns>The value of wire "a".</returns>
     public override object PartOne(string input)
     {
-        return Run(input, "a", []);
+        return Run(input.AsSpan(), "a", []);
     }
 
     /// <summary>
@@ -22,20 +22,20 @@ public sealed class Day07 : SolutionBase
     /// <returns>The value of wire "a".</returns>
     public override object PartTwo(string input)
     {
-        return Run(input, "a", new() { { "b", 956 } });
+        return Run(input.AsSpan(), "a", new() { { "b", 956 } });
     }
 
     /// <summary>
     /// Runs the circuit simulation based on the input string and returns the value of the specified wire.
     /// </summary>
-    /// <param name="input">The input string representing the circuit.</param>
+    /// <param name="span">The input string representing the circuit.</param>
     /// <param name="wire">The wire whose value is to be returned.</param>
     /// <param name="cache">A dictionary used to cache computed wire values.</param>
     /// <returns>The value of the specified wire.</returns>
     /// <exception cref="InvalidOperationException"></exception>
-    private static ushort Run(string input, string wire, Dictionary<string, ushort> cache)
+    private static ushort Run(ReadOnlySpan<char> span, string wire, Dictionary<string, ushort> cache)
     {
-        Dictionary<string, Gate> gateMap = ParseGates(input).ToDictionary(g => g.Output);
+        Dictionary<string, Gate> gateMap = ParseGates(span).ToDictionary(g => g.Output);
 
         return Evaluate(wire);
 
@@ -72,15 +72,15 @@ public sealed class Day07 : SolutionBase
     /// <summary>
     /// Parses the input string into a list of Gate objects, representing the circuit described by the input.
     /// </summary>
-    /// <param name="input">The input string.</param>
+    /// <param name="span">The input string.</param>
     /// <returns>The list of parsed gates.</returns>
     /// <exception cref="FormatException">Thrown when the input string is malformed.</exception>
-    private static List<Gate> ParseGates(string input)
+    private static List<Gate> ParseGates(ReadOnlySpan<char> span)
     {
         Span<Range> tokens = stackalloc Range[5];
 
         List<Gate> gates = [];
-        foreach (ReadOnlySpan<char> line in input.EnumerateLines())
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
         {
             if (line.IsEmpty)
                 continue;

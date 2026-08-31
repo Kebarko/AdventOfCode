@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Text;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -10,26 +11,44 @@ public sealed class Day06 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        string[] lines = Lines(input);
-
         var groups = new List<Group>();
 
-        foreach (string line in lines[0..^1])
+        SpanLineEnumerator enumerator = input.EnumerateLines();
+        if (enumerator.MoveNext())
         {
-            int[] values = Ints(line);
-            for (int j = 0; j < values.Length; j++)
+            int i;
+            ReadOnlySpan<char> line = enumerator.Current;
+            while (enumerator.MoveNext())
             {
-                if (groups.Count <= j)
-                    groups.Add(new Group());
+                i = 0;
+                foreach (Range range in line.SplitAny(ReadOnlySpan<char>.Empty))
+                {
+                    if (line[range].IsEmpty)
+                        continue;
 
-                groups[j].Values.Add(values[j]);
+                    int value = int.Parse(line[range]);
+
+                    if (groups.Count <= i)
+                        groups.Add(new Group());
+
+                    groups[i].Values.Add(value);
+
+                    i++;
+                }
+
+                line = enumerator.Current;
             }
-        }
 
-        char[] operators = Chars(lines[^1]);
-        for (int i = 0; i < groups.Count; i++)
-        {
-            groups[i].Operator = operators[i];
+            i = 0;
+            foreach (Range range in line.SplitAny(ReadOnlySpan<char>.Empty))
+            {
+                if (line[range].IsEmpty)
+                    continue;
+
+                groups[i].Operator = line[range][0];
+
+                i++;
+            }
         }
 
         return groups.Sum(group => group.Calculate());
@@ -40,7 +59,7 @@ public sealed class Day06 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        string[] lines = Lines(input, StringSplitOptions.RemoveEmptyEntries);
+        string[] lines = input.Split("\r\n");
 
         var groups = new List<Group>();
         var group = new Group();

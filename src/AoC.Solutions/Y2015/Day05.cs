@@ -18,9 +18,6 @@ public sealed class Day05 : SolutionBase
         int result = 0;
         foreach (ReadOnlySpan<char> line in input.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             int vowels = 0;
             bool hasDouble = false;
             bool hasDisallowed = false;
@@ -58,9 +55,6 @@ public sealed class Day05 : SolutionBase
         int result = 0;
         foreach (ReadOnlySpan<char> line in input.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             bool hasSandwich = false;
             char prev = '\0';
             char prevPrev = '\0';

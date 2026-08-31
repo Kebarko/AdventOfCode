@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace KE.AoC.Core.Solution;
+﻿namespace KE.AoC.Core.Solution;
 
 /// <summary>
 /// Represents the base class for Advent of Code solutions, providing common utility methods for processing input data.
@@ -24,42 +22,4 @@ public abstract class SolutionBase : ISolution
     /// <returns>The result of the solution.</returns>
     public virtual object PartTwo(string input) =>
         throw new NotImplementedException("Part two is not implemented yet.");
-
-    // ---- Common parsing helpers used by most puzzles ----
-
-    /// <summary>
-    /// Splits the input string into an array of lines. Empty entries are removed and whitespace is trimmed.
-    /// </summary>
-    protected static string[] Lines(string input, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) =>
-        input.ReplaceLineEndings("\n").Split('\n', options);
-
-    /// <summary>
-    /// Splits the input string into an array of paragraphs, where paragraphs are separated by two consecutive newlines. Empty entries are removed and whitespace is trimmed.
-    /// </summary>
-    protected static string[] Paragraphs(string input, StringSplitOptions options = StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries) =>
-        input.ReplaceLineEndings("\n").Split("\n\n", options);
-
-    /// <summary>
-    /// Extracts all integers from the input string and returns them as an array of integers.
-    /// </summary>
-    protected static int[] Ints(string input) =>
-        Regex.Matches(input, @"-?\d+").Select(m => int.Parse(m.Value)).ToArray();
-
-    /// <summary>
-    /// Extracts all long integers from the input string and returns them as an array of long integers.
-    /// </summary>
-    protected static long[] Longs(string input) =>
-        Regex.Matches(input, @"-?\d+").Select(m => long.Parse(m.Value)).ToArray();
-
-    /// <summary>
-    /// Extracts all non-whitespace strings from the input string and returns them as an array of strings.
-    /// </summary>
-    protected static string[] Strings(string input) =>
-        input.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries).ToArray();
-
-    /// <summary>
-    /// Extracts all non-whitespace characters from the input string and returns them as an array of characters.
-    /// </summary>
-    protected static char[] Chars(string input) =>
-        input.Where(c => !char.IsWhiteSpace(c)).ToArray();
 }

@@ -12,7 +12,7 @@ public sealed class Day09 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        List<Point2D<int>> points = ParsePoints(input);
+        List<Point2D<int>> points = ParsePoints(input.AsSpan());
 
         return points
             .SelectMany((p, i) => points.Skip(i + 1), Rectangle.FromCorners)
@@ -25,7 +25,7 @@ public sealed class Day09 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        List<Point2D<int>> points = ParsePoints(input);
+        List<Point2D<int>> points = ParsePoints(input.AsSpan());
 
         Polygon polygon = new(points);
 
@@ -39,15 +39,25 @@ public sealed class Day09 : SolutionBase
     /// <summary>
     /// Parses the input string into a list of 2D points represented by Point2D<int> objects.
     /// </summary>
-    private static List<Point2D<int>> ParsePoints(string input)
+    private static List<Point2D<int>> ParsePoints(ReadOnlySpan<char> span)
     {
-        return Lines(input)
-            .Select(line => line.Split(','))
-            .Where(coords => coords.Length == 2)
-            .Select(coords => new Point2D<int>(
-                int.Parse(coords[0]),
-                int.Parse(coords[1])))
-            .ToList();
+        List<Point2D<int>> result = [];
+
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
+        {
+            List<Range> ranges = [];
+            foreach (Range range in line.Split(','))
+                ranges.Add(range);
+
+            if (ranges.Count == 2)
+            {
+                result.Add(new Point2D<int>(
+                    int.Parse(line[ranges[0]]),
+                    int.Parse(line[ranges[1]])));
+            }
+        }
+
+        return result;
     }
 
     /// <summary>

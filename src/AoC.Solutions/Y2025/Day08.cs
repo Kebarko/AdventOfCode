@@ -11,7 +11,7 @@ public sealed class Day08 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        List<Point3D<int>> points = ParsePoints(input);
+        List<Point3D<int>> points = ParsePoints(input.AsSpan());
 
         var uf = new QuickUnion(points.Count);
 
@@ -33,7 +33,7 @@ public sealed class Day08 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        List<Point3D<int>> points = ParsePoints(input);
+        List<Point3D<int>> points = ParsePoints(input.AsSpan());
 
         var uf = new QuickUnion(points.Count);
 
@@ -55,16 +55,26 @@ public sealed class Day08 : SolutionBase
     /// <summary>
     /// Parses the input string into a list of 3D points represented by Point3D<int> objects.
     /// </summary>
-    private static List<Point3D<int>> ParsePoints(string input)
+    private static List<Point3D<int>> ParsePoints(ReadOnlySpan<char> span)
     {
-        return Lines(input)
-            .Select(line => line.Split(','))
-            .Where(coords => coords.Length == 3)
-            .Select(coords => new Point3D<int>(
-                int.Parse(coords[0]),
-                int.Parse(coords[1]),
-                int.Parse(coords[2])))
-            .ToList();
+        List<Point3D<int>> result = [];
+
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
+        {
+            List<Range> ranges = [];
+            foreach (Range range in line.Split(','))
+                ranges.Add(range);
+
+            if (ranges.Count == 3)
+            {
+                result.Add(new Point3D<int>(
+                    int.Parse(line[ranges[0]]),
+                    int.Parse(line[ranges[1]]),
+                    int.Parse(line[ranges[2]])));
+            }
+        }
+
+        return result;
     }
 
     /// <summary>

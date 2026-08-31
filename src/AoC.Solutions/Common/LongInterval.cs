@@ -1,14 +1,10 @@
-﻿using System.Text.RegularExpressions;
-
-namespace KE.AoC.Solutions.Common;
+﻿namespace KE.AoC.Solutions.Common;
 
 /// <summary>
 /// Represents an interval of long integers with a start and end value. Boundaries are inclusive.
 /// </summary>
 public readonly partial record struct LongInterval : IComparable<LongInterval>
 {
-    private static readonly Regex intervalRegex = GetIntervalRegex();
-
     /// <summary>
     /// Gets the start value of the interval.
     /// </summary>
@@ -71,17 +67,17 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
     /// <summary>
     /// Parses a string representation of an interval in the format "Start-End" into a <see cref="LongInterval"/> instance.
     /// </summary>
-    public static LongInterval Parse(string str)
+    public static LongInterval Parse(ReadOnlySpan<char> span)
     {
-        if (string.IsNullOrWhiteSpace(str))
-            throw new ArgumentException("Interval string must not be null or empty.", nameof(str));
+        if (span.IsEmpty)
+            throw new ArgumentException("Interval string must not be null or empty.", nameof(span));
 
-        Match match = intervalRegex.Match(str);
-        if (!match.Success)
-            throw new FormatException($"Invalid interval '{str}'. Expected format 'Start-End'.");
+        int dash = span.IndexOf('-');
+        if (dash < 0)
+            throw new FormatException($"Invalid interval '{span}'. Expected format 'Start-End'.");
 
-        long start = long.Parse(match.Groups[1].ValueSpan);
-        long end = long.Parse(match.Groups[2].ValueSpan);
+        long start = long.Parse(span[..dash]);
+        long end = long.Parse(span[(dash + 1)..]);
 
         return new LongInterval(start, end);
     }
@@ -89,19 +85,19 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
     /// <summary>
     /// Tries to parse a string representation of an interval in the format "Start-End" into a <see cref="LongInterval"/> instance.
     /// </summary>
-    public static bool TryParse(string str, out LongInterval result)
+    public static bool TryParse(ReadOnlySpan<char> span, out LongInterval result)
     {
         result = default;
 
-        if (string.IsNullOrWhiteSpace(str))
+        if (span.IsEmpty)
             return false;
 
-        Match match = intervalRegex.Match(str);
-        if (!match.Success)
+        int dash = span.IndexOf('-');
+        if (dash < 0)
             return false;
 
-        if (!long.TryParse(match.Groups[1].ValueSpan, out long start) ||
-            !long.TryParse(match.Groups[2].ValueSpan, out long end))
+        if (!long.TryParse(span[..dash], out long start) ||
+            !long.TryParse(span[(dash + 1)..], out long end))
             return false;
 
         if (start > end)
@@ -142,7 +138,4 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
         result.Add(tmp);
         return result;
     }
-
-    [GeneratedRegex(@"^\s*(-?\d+)\s*-\s*(-?\d+)\s*$")]
-    private static partial Regex GetIntervalRegex();
 }

@@ -15,9 +15,6 @@ public sealed class Day02 : SolutionBase
         int result = 0;
         foreach (ReadOnlySpan<char> line in input.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             (int a, int b, int c) = ParseBox(line);
 
             int s1 = a * b;
@@ -43,9 +40,6 @@ public sealed class Day02 : SolutionBase
         int result = 0;
         foreach (ReadOnlySpan<char> line in input.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             (int a, int b, int c) = ParseBox(line);
 
             int perimeter = 2 * (a + b + c - Math.Max(a, Math.Max(b, c)));

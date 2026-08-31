@@ -10,12 +10,10 @@ public sealed class Day01 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        string[] rotations = Lines(input);
-
         const int size = 100;
         int current = 50;
         int zeros = 0;
-        foreach (string rotation in rotations)
+        foreach (ReadOnlySpan<char> rotation in input.EnumerateLines())
         {
             char direction = rotation[0];
             int distance = int.Parse(rotation[1..]);
@@ -45,12 +43,10 @@ public sealed class Day01 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        string[] rotations = Lines(input);
-
         const int size = 100;
         int current = 50;
         int zeros = 0;
-        foreach (string rotation in rotations)
+        foreach (ReadOnlySpan<char> rotation in input.EnumerateLines())
         {
             char direction = rotation[0];
             int distance = int.Parse(rotation[1..]);
@@ -71,7 +67,6 @@ public sealed class Day01 : SolutionBase
                 case 'L':
                     {
                         int distToZero = current == 0 ? size : current;
-
                         if (distance >= distToZero)
                         {
                             zeros += 1 + (distance - distToZero) / size;

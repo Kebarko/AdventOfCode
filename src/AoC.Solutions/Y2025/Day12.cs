@@ -11,7 +11,7 @@ public sealed class Day12 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        (List<Grid<bool>> shapes, List<Region> regions) = Parse(input);
+        (List<Grid<bool>> shapes, List<Region> regions) = Parse(input.AsSpan());
 
         return regions.Count(region => IsRegionValid(region, shapes));
     }
@@ -42,17 +42,20 @@ public sealed class Day12 : SolutionBase
         throw new NotImplementedException();
     }
 
-    private static (List<Grid<bool>> Shapes, List<Region> Regions) Parse(string input)
+    private static (List<Grid<bool>> Shapes, List<Region> Regions) Parse(ReadOnlySpan<char> span)
     {
         List<Grid<bool>> shapes = [];
         List<Region> regions = [];
         List<string> shapeLines = [];
 
-        foreach (string line in Lines(input))
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
         {
+            if (line.IsEmpty)
+                continue;
+
             if (!line.Contains(':'))
             {
-                shapeLines.Add(line);
+                shapeLines.Add(line.ToString());
             }
             else if (!line.EndsWith(':'))
             {

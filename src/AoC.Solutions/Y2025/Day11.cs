@@ -13,7 +13,7 @@ public sealed class Day11 : SolutionBase
         const string start = "you";
         const string target = "out";
 
-        Dictionary<string, List<string>> graph = ParseGraph(input);
+        Dictionary<string, List<string>> graph = ParseGraph(input.AsSpan());
         Dictionary<string, long> cache = [];
 
         return Count(start);
@@ -47,7 +47,7 @@ public sealed class Day11 : SolutionBase
         const string dac = "dac";
         const string fft = "fft";
 
-        Dictionary<string, List<string>> graph = ParseGraph(input);
+        Dictionary<string, List<string>> graph = ParseGraph(input.AsSpan());
         Dictionary<(string, bool, bool), long> cache = [];
 
         return Count(start, false, false);
@@ -75,16 +75,27 @@ public sealed class Day11 : SolutionBase
         }
     }
 
-    private static Dictionary<string, List<string>> ParseGraph(string input)
+    private static Dictionary<string, List<string>> ParseGraph(ReadOnlySpan<char> span)
     {
         Dictionary<string, List<string>> graph = [];
 
-        foreach (string line in Lines(input))
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
         {
-            string[] parts = line.Split([':', ' '], StringSplitOptions.RemoveEmptyEntries);
-            if (parts.Length > 1)
+            List<Range> ranges = [];
+            foreach (Range range in line.SplitAny([':', ' ']))
             {
-                graph.Add(parts[0], parts.Skip(1).ToList());
+                ranges.Add(range);
+            }
+
+            if (ranges.Count > 1)
+            {
+                List<string> values = [];
+                foreach (Range range in ranges.Skip(2))
+                {
+                    values.Add(line[range].ToString());
+                }
+
+                graph.Add(line[ranges[0]].ToString(), values);
             }
         }
 

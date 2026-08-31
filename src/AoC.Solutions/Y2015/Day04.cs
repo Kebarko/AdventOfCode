@@ -14,7 +14,7 @@ public sealed class Day04 : SolutionBase
     /// <returns>The lowest integer that satisfies the condition.</returns>
     public override object PartOne(string input)
     {
-        return Mine(input.AsSpan().Trim(), 5);
+        return Mine(input.AsSpan(), 5);
     }
 
     /// <summary>
@@ -24,7 +24,7 @@ public sealed class Day04 : SolutionBase
     /// <returns>The lowest integer that satisfies the condition.</returns>
     public override object PartTwo(string input)
     {
-        return Mine(input.AsSpan().Trim(), 6);
+        return Mine(input.AsSpan(), 6);
     }
 
     /// <summary>

@@ -11,9 +11,11 @@ public sealed class Day10 : SolutionBase
     /// </summary>
     public override object PartOne(string input)
     {
-        List<Machine> machines = Lines(input)
-            .Select(line => ParseMachine(line.AsSpan()))
-            .ToList();
+        List<Machine> machines = [];
+        foreach (ReadOnlySpan<char> span in input.EnumerateLines())
+        {
+            machines.Add(ParseMachine(span));
+        }
 
         int result = 0;
 
@@ -54,9 +56,11 @@ public sealed class Day10 : SolutionBase
     /// </summary>
     public override object PartTwo(string input)
     {
-        List<Machine> machines = Lines(input)
-            .Select(line => ParseMachine(line.AsSpan()))
-            .ToList();
+        List<Machine> machines = [];
+        foreach (ReadOnlySpan<char> span in input.EnumerateLines())
+        {
+            machines.Add(ParseMachine(span));
+        }
 
         long result = 0;
 

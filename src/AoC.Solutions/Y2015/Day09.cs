@@ -13,7 +13,7 @@ public sealed class Day09 : SolutionBase
     /// <returns>The shortest path length.</returns>
     public override object PartOne(string input)
     {
-        Graph graph = ParseGraph(input);
+        Graph graph = ParseGraph(input.AsSpan());
 
         ushort minLength = ushort.MaxValue;
         foreach (string[] perm in Combinatorics.GetPermutations(graph.Vertices))
@@ -33,7 +33,7 @@ public sealed class Day09 : SolutionBase
     /// <returns>The longest path length.</returns>
     public override object PartTwo(string input)
     {
-        Graph graph = ParseGraph(input);
+        Graph graph = ParseGraph(input.AsSpan());
 
         ushort maxLength = ushort.MinValue;
         foreach (string[] perm in Combinatorics.GetPermutations(graph.Vertices))
@@ -66,19 +66,16 @@ public sealed class Day09 : SolutionBase
     /// <summary>
     /// Parses the input string to create a graph representation.
     /// </summary>
-    /// <param name="input">The input string containing distances between locations.</param>
+    /// <param name="span">The input string containing distances between locations.</param>
     /// <returns>The graph representation.</returns>
-    private static Graph ParseGraph(string input)
+    private static Graph ParseGraph(ReadOnlySpan<char> span)
     {
         Dictionary<(string, string), ushort> distances = [];
         HashSet<string> locations = [];
 
         Span<Range> tokens = stackalloc Range[5];
-        foreach (ReadOnlySpan<char> line in input.EnumerateLines())
+        foreach (ReadOnlySpan<char> line in span.EnumerateLines())
         {
-            if (line.IsEmpty)
-                continue;
-
             int count = line.Split(tokens, ' ');
             if (count != 5)
                 continue;
