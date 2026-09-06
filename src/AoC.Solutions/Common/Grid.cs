@@ -13,12 +13,12 @@ public sealed class Grid<T>(int width, int height)
     /// <summary>
     /// Gets the height of the grid (number of rows).
     /// </summary>
-    public int Height => cells.GetLength(0);
+    public int Height => height;
 
     /// <summary>
     /// Gets the width of the grid (number of columns).
     /// </summary>
-    public int Width => cells.GetLength(1);
+    public int Width => width;
 
     /// <summary>
     /// Gets or sets the value of the cell at the specified coordinates (x, y) in the grid.
@@ -97,8 +97,7 @@ public sealed class Grid<T>(int width, int height)
         return false;
     }
 
-    // ---- Enumeration -------------------------------------------------------
-
+    #region Enumeration
     /// <summary>
     /// Returns an enumerable of all cells in the grid, along with their coordinates (x, y) and value.
     /// </summary>
@@ -167,9 +166,9 @@ public sealed class Grid<T>(int width, int height)
 
         return null;
     }
+    #endregion
 
-    // ---- Neighbours --------------------------------------------------------
-
+    #region Neighbours
     private static readonly (int dx, int dy)[] OrthogonalOffsets = [(0, 1), (1, 0), (0, -1), (-1, 0)];
 
     private static readonly (int dx, int dy)[] AllOffsets = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)];
@@ -204,8 +203,42 @@ public sealed class Grid<T>(int width, int height)
         }
     }
 
-    // ---- Parsing -----------------------------------------------------------
+    /// <summary>
+    /// Returns the coordinates of the 4 orthogonal neighbouring cells (up, down, left, right) of the cell at (x, y) that are within the bounds of the grid.
+    /// </summary>
+    public int Neighbours4Count(int x, int y, Predicate<T> match)
+    {
+        return StepCount(x, y, match, OrthogonalOffsets);
+    }
 
+    /// <summary>
+    /// Returns the coordinates of the 8 neighbouring cells (including diagonals) of the cell at (x, y) that are within the bounds of the grid.
+    /// </summary>
+    public int Neighbours8Count(int x, int y, Predicate<T> match)
+    {
+        return StepCount(x, y, match, AllOffsets);
+    }
+
+    private int StepCount(int x, int y, Predicate<T> match, (int dx, int dy)[] offsets)
+    {
+        int count = 0;
+
+        foreach ((int dx, int dy) in offsets)
+        {
+            int nx = x + dx;
+            int ny = y + dy;
+
+            if (TryGet(nx, ny, out T? value) && match(value))
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+    #endregion
+
+    #region Parsing
     /// <summary>
     /// Parses a grid from a string representation, where each line represents a row in the grid. The selector function is used to convert each character in the lines to the desired type T.
     /// </summary>
@@ -246,9 +279,9 @@ public sealed class Grid<T>(int width, int height)
     {
         return text.ReplaceLineEndings("\n").Trim('\n').Split('\n');
     }
+    #endregion
 
-    // ---- Rendering (debugging) --------------------------------------------
-
+    #region Rendering (debugging)
     /// <summary>
     /// Renders the grid to a string using a selector function to convert each cell to a character.
     /// </summary>
@@ -302,6 +335,7 @@ public sealed class Grid<T>(int width, int height)
 
         return sb.ToString();
     }
+    #endregion
 }
 
 /// <summary>
@@ -312,48 +346,30 @@ public static class Grid
     /// <summary>
     /// Creates a grid of characters from a string representation.
     /// </summary>
-    public static Grid<char> OfChars(string text)
-    {
-        return Grid<char>.Parse(text, c => c);
-    }
+    public static Grid<char> OfChars(string text) => Grid<char>.Parse(text, c => c);
 
     /// <summary>
     /// Creates a grid of characters from a list of strings, where each string represents a row in the grid.
     /// </summary>
-    public static Grid<char> OfChars(IReadOnlyList<string> lines)
-    {
-        return Grid<char>.Parse(lines, c => c);
-    }
+    public static Grid<char> OfChars(IReadOnlyList<string> lines) => Grid<char>.Parse(lines, c => c);
 
     /// <summary>
     /// Creates a grid of booleans from a string representation, where a specified character represents true and all other characters represent false.
     /// </summary>
-    public static Grid<bool> OfBools(string text, char trueChar)
-    {
-        return Grid<bool>.Parse(text, c => c == trueChar);
-    }
+    public static Grid<bool> OfBools(string text, char trueChar) => Grid<bool>.Parse(text, c => c == trueChar);
 
     /// <summary>
     /// Creates a grid of booleans from a list of strings, where each string represents a row in the grid and a specified character represents true and all other characters represent false.
     /// </summary>
-    public static Grid<bool> OfBools(IReadOnlyList<string> lines, char trueChar)
-    {
-        return Grid<bool>.Parse(lines, c => c == trueChar);
-    }
+    public static Grid<bool> OfBools(IReadOnlyList<string> lines, char trueChar) => Grid<bool>.Parse(lines, c => c == trueChar);
 
     /// <summary>
     /// Creates a grid of a specified type from a string representation, using a selector function to convert characters to the desired type.
     /// </summary>
-    public static Grid<T> Of<T>(string text, Func<char, T> selector)
-    {
-        return Grid<T>.Parse(text, selector);
-    }
+    public static Grid<T> Of<T>(string text, Func<char, T> selector) => Grid<T>.Parse(text, selector);
 
     /// <summary>
     /// Creates a grid of a specified type from a list of strings, where each string represents a row in the grid, using a selector function to convert characters to the desired type.
     /// </summary>
-    public static Grid<T> Of<T>(IReadOnlyList<string> lines, Func<char, T> selector)
-    {
-        return Grid<T>.Parse(lines, selector);
-    }
+    public static Grid<T> Of<T>(IReadOnlyList<string> lines, Func<char, T> selector) => Grid<T>.Parse(lines, selector);
 }
