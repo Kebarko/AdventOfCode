@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -62,7 +63,7 @@ public sealed class Day02 : SolutionBase
         List<int> edges = [];
 
         foreach (Range range in span.Split('x'))
-            edges.Add(int.Parse(span[range]));
+            edges.Add(int.Parse(span[range], NumberStyles.None, NumberFormatInfo.InvariantInfo));
 
         if (edges.Count != 3)
             throw new ArgumentException("Invalid box dimensions");

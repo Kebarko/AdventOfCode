@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -109,7 +110,7 @@ public sealed class Day07 : SolutionBase
     /// <returns>The parsed operand.</returns>
     private static Operand ParseOperand(ReadOnlySpan<char> span)
     {
-        if (ushort.TryParse(span, out ushort result))
+        if (ushort.TryParse(span, NumberStyles.None, NumberFormatInfo.InvariantInfo, out ushort result))
         {
             return new Literal(result);
         }

@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 using System.Text;
 
 namespace KE.AoC.Solutions.Y2025;
@@ -26,7 +27,7 @@ public sealed class Day06 : SolutionBase
                     if (line[range].IsEmpty)
                         continue;
 
-                    int value = int.Parse(line[range]);
+                    int value = int.Parse(line[range], NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
                     if (groups.Count <= i)
                         groups.Add(new Group());

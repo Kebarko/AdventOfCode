@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -16,7 +17,7 @@ public sealed class Day01 : SolutionBase
         foreach (ReadOnlySpan<char> rotation in input.EnumerateLines())
         {
             char direction = rotation[0];
-            int distance = int.Parse(rotation[1..]);
+            int distance = int.Parse(rotation[1..], NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
             switch (direction)
             {
@@ -49,7 +50,7 @@ public sealed class Day01 : SolutionBase
         foreach (ReadOnlySpan<char> rotation in input.EnumerateLines())
         {
             char direction = rotation[0];
-            int distance = int.Parse(rotation[1..]);
+            int distance = int.Parse(rotation[1..], NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
             switch (direction)
             {

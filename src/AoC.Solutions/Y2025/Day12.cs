@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -90,8 +91,8 @@ public sealed class Day12 : SolutionBase
             int x = span.IndexOf('x');
             int colon = span.IndexOf(':');
 
-            int width = int.Parse(span[..x]);
-            int height = int.Parse(span[(x + 1)..colon]);
+            int width = int.Parse(span[..x], NumberStyles.None, NumberFormatInfo.InvariantInfo);
+            int height = int.Parse(span[(x + 1)..colon], NumberStyles.None, NumberFormatInfo.InvariantInfo);
             List<int> quantity = [];
 
             int value = 0;

@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -82,7 +83,7 @@ public sealed class Day09 : SolutionBase
 
             string from = line[tokens[0]].ToString();
             string to = line[tokens[2]].ToString();
-            ushort dist = ushort.Parse(line[tokens[4]]);
+            ushort dist = ushort.Parse(line[tokens[4]], NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
             distances.Add((from, to), dist);
             distances.Add((to, from), dist);

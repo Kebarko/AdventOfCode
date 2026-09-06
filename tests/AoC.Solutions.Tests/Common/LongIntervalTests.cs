@@ -212,7 +212,6 @@ public class LongIntervalTests
     [InlineData("0-0", 0L, 0L)]
     [InlineData("-5--3", -5L, -3L)]
     [InlineData("-10-10", -10L, 10L)]
-    [InlineData("  3 - 7  ", 3L, 7L)]
     [InlineData("-9223372036854775808-9223372036854775807", long.MinValue, long.MaxValue)]
     public void Parse_ValidInput_ReturnsInterval(string input, long expectedStart, long expectedEnd)
     {
@@ -245,6 +244,7 @@ public class LongIntervalTests
     [InlineData("1..5")]
     [InlineData("1.5-3")]
     [InlineData("- 5-3")]
+    [InlineData("  3 - 7  ")]
     public void Parse_InvalidFormat_ThrowsFormatException(string input)
     {
         Assert.Throws<FormatException>(() => LongInterval.Parse(input));
@@ -274,7 +274,6 @@ public class LongIntervalTests
     [InlineData("1-5", 1L, 5L)]
     [InlineData("0-0", 0L, 0L)]
     [InlineData("-5--3", -5L, -3L)]
-    [InlineData("  3 - 7  ", 3L, 7L)]
     [InlineData("-9223372036854775808-9223372036854775807", long.MinValue, long.MaxValue)]
     public void TryParse_ValidInput_ReturnsTrueWithResult(string input, long expectedStart, long expectedEnd)
     {
@@ -292,6 +291,7 @@ public class LongIntervalTests
     [InlineData("abc")]
     [InlineData("5")]
     [InlineData("1-2-3")]
+    [InlineData("  3 - 7  ")]
     [InlineData("5-3")]                     // start > end
     [InlineData("99999999999999999999-0")]  // overflow
     [InlineData("0-99999999999999999999")]  // overflow

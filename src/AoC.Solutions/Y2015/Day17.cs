@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -82,7 +83,7 @@ public sealed class Day17 : SolutionBase
 
         foreach (ReadOnlySpan<char> line in span.EnumerateLines())
         {
-            containers.Add(int.Parse(line));
+            containers.Add(int.Parse(line, NumberStyles.None, NumberFormatInfo.InvariantInfo));
         }
 
         return containers;

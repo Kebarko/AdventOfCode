@@ -1,6 +1,7 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
 using System.Collections;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -52,8 +53,8 @@ public sealed class Day09 : SolutionBase
             if (ranges.Count == 2)
             {
                 result.Add(new Point2D<int>(
-                    int.Parse(line[ranges[0]]),
-                    int.Parse(line[ranges[1]])));
+                    int.Parse(line[ranges[0]], NumberStyles.None, NumberFormatInfo.InvariantInfo),
+                    int.Parse(line[ranges[1]], NumberStyles.None, NumberFormatInfo.InvariantInfo)));
             }
         }
 

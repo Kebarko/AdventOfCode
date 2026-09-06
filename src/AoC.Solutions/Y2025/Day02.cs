@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -33,8 +34,8 @@ public sealed class Day02 : SolutionBase
             ReadOnlySpan<char> interval = span[range];
             int dash = interval.IndexOf('-');
 
-            ulong lower = ulong.Parse(interval[..dash]);
-            ulong upper = ulong.Parse(interval[(dash + 1)..]);
+            ulong lower = ulong.Parse(interval[..dash], NumberStyles.None, NumberFormatInfo.InvariantInfo);
+            ulong upper = ulong.Parse(interval[(dash + 1)..], NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
             result += (ulong)findInvalidIds(lower, upper).Sum(x => (decimal)x);
         }

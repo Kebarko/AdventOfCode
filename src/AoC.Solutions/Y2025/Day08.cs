@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -68,9 +69,9 @@ public sealed class Day08 : SolutionBase
             if (ranges.Count == 3)
             {
                 result.Add(new Point3D<int>(
-                    int.Parse(line[ranges[0]]),
-                    int.Parse(line[ranges[1]]),
-                    int.Parse(line[ranges[2]])));
+                    int.Parse(line[ranges[0]], NumberStyles.None, NumberFormatInfo.InvariantInfo),
+                    int.Parse(line[ranges[1]], NumberStyles.None, NumberFormatInfo.InvariantInfo),
+                    int.Parse(line[ranges[2]], NumberStyles.None, NumberFormatInfo.InvariantInfo)));
             }
         }
 

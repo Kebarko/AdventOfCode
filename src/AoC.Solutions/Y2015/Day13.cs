@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -88,7 +89,7 @@ public sealed class Day13 : SolutionBase
             if (line.Split(tokens, ' ') != 11)
                 continue;
 
-            int value = int.Parse(line[tokens[3]]);
+            int value = int.Parse(line[tokens[3]], NumberStyles.None, NumberFormatInfo.InvariantInfo);
             if (line[tokens[2]].SequenceEqual("lose"))
                 value = -value;
 

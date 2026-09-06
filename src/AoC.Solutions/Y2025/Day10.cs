@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 using System.Numerics;
 
 namespace KE.AoC.Solutions.Y2025;
@@ -179,7 +180,7 @@ public sealed class Day10 : SolutionBase
         int mask = 0;
 
         foreach (Range range in span.Split(','))
-            mask |= 1 << int.Parse(span[range]);
+            mask |= 1 << int.Parse(span[range], NumberStyles.None, NumberFormatInfo.InvariantInfo);
 
         return mask;
     }
@@ -194,7 +195,7 @@ public sealed class Day10 : SolutionBase
         int i = 0;
         foreach (Range range in span.Split(','))
         {
-            values[i++] = int.Parse(span[range]);
+            values[i++] = int.Parse(span[range], NumberStyles.None, NumberFormatInfo.InvariantInfo);
         }
 
         return values;

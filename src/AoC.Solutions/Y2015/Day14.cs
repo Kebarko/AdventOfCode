@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -69,9 +70,9 @@ public sealed class Day14 : SolutionBase
                 continue;
 
             herd.Add(new Reindeer(
-                int.Parse(line[tokens[3]]),
-                int.Parse(line[tokens[6]]),
-                int.Parse(line[tokens[13]])));
+                int.Parse(line[tokens[3]], NumberStyles.None, NumberFormatInfo.InvariantInfo),
+                int.Parse(line[tokens[6]], NumberStyles.None, NumberFormatInfo.InvariantInfo),
+                int.Parse(line[tokens[13]], NumberStyles.None, NumberFormatInfo.InvariantInfo)));
         }
 
         return herd;

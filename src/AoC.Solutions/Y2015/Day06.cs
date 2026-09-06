@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.to.Y015;
 
@@ -199,7 +200,9 @@ public sealed class Day06 : SolutionBase
         if (comma < 0)
             throw new FormatException($"Malformed point: {span}");
 
-        return new Point2D<int>(int.Parse(span[..comma]), int.Parse(span[(comma + 1)..]));
+        return new Point2D<int>(
+            int.Parse(span[..comma], NumberStyles.None, NumberFormatInfo.InvariantInfo),
+            int.Parse(span[(comma + 1)..], NumberStyles.None, NumberFormatInfo.InvariantInfo));
     }
 
     /// <summary>

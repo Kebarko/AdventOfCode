@@ -1,5 +1,6 @@
 ﻿using KE.AoC.Core.Solution;
 using KE.AoC.Solutions.Common;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
@@ -55,7 +56,7 @@ public sealed class Day05 : SolutionBase
             {
                 freshIntervals.Add(longInterval);
             }
-            else if (long.TryParse(line, out long value))
+            else if (long.TryParse(line, NumberStyles.None, NumberFormatInfo.InvariantInfo, out long value))
             {
                 ingredients.Add(value);
             }

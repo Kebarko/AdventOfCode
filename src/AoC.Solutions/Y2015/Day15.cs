@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -139,11 +140,11 @@ public sealed class Day15 : SolutionBase
                 continue;
 
             ingredients.Add(new Ingredient(
-                int.Parse(line[tokens[2]][..^1]),
-                int.Parse(line[tokens[4]][..^1]),
-                int.Parse(line[tokens[6]][..^1]),
-                int.Parse(line[tokens[8]][..^1]),
-                int.Parse(line[tokens[10]])));
+                int.Parse(line[tokens[2]][..^1], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo),
+                int.Parse(line[tokens[4]][..^1], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo),
+                int.Parse(line[tokens[6]][..^1], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo),
+                int.Parse(line[tokens[8]][..^1], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo),
+                int.Parse(line[tokens[10]], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo)));
         }
 
         return ingredients;

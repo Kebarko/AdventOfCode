@@ -1,4 +1,5 @@
 ﻿using KE.AoC.Core.Solution;
+using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
@@ -108,10 +109,10 @@ public sealed class Day16 : SolutionBase
             if (line.Split(tokens, ' ') != 8)
                 continue;
 
-            Aunt aunt = new(int.Parse(line[tokens[1]][..^1]));
-            aunt.Props.Add(line[tokens[2]][..^1].ToString(), int.Parse(line[tokens[3]][..^1]));
-            aunt.Props.Add(line[tokens[4]][..^1].ToString(), int.Parse(line[tokens[5]][..^1]));
-            aunt.Props.Add(line[tokens[6]][..^1].ToString(), int.Parse(line[tokens[7]]));
+            Aunt aunt = new(int.Parse(line[tokens[1]][..^1], NumberStyles.None, NumberFormatInfo.InvariantInfo));
+            aunt.Props.Add(line[tokens[2]][..^1].ToString(), int.Parse(line[tokens[3]][..^1], NumberStyles.None, NumberFormatInfo.InvariantInfo));
+            aunt.Props.Add(line[tokens[4]][..^1].ToString(), int.Parse(line[tokens[5]][..^1], NumberStyles.None, NumberFormatInfo.InvariantInfo));
+            aunt.Props.Add(line[tokens[6]][..^1].ToString(), int.Parse(line[tokens[7]], NumberStyles.None, NumberFormatInfo.InvariantInfo));
 
             aunts.Add(aunt);
         }

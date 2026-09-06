@@ -1,4 +1,6 @@
-﻿namespace KE.AoC.Solutions.Common;
+﻿using System.Globalization;
+
+namespace KE.AoC.Solutions.Common;
 
 /// <summary>
 /// Represents an interval of long integers with a start and end value. Boundaries are inclusive.
@@ -76,8 +78,8 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
         if (dash < 0)
             throw new FormatException($"Invalid interval '{span}'. Expected format 'Start-End'.");
 
-        long start = long.Parse(span[..dash]);
-        long end = long.Parse(span[(dash + 1)..]);
+        long start = long.Parse(span[..dash], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo);
+        long end = long.Parse(span[(dash + 1)..], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo);
 
         return new LongInterval(start, end);
     }
@@ -96,8 +98,8 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
         if (dash < 0)
             return false;
 
-        if (!long.TryParse(span[..dash], out long start) ||
-            !long.TryParse(span[(dash + 1)..], out long end))
+        if (!long.TryParse(span[..dash], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo, out long start) ||
+            !long.TryParse(span[(dash + 1)..], NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo, out long end))
             return false;
 
         if (start > end)
