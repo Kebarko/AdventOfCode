@@ -72,7 +72,7 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
         if (span.IsEmpty)
             throw new ArgumentException("Interval string must not be null or empty.", nameof(span));
 
-        int dash = span.IndexOf('-');
+        int dash = IndexOfSeparator(span);
         if (dash < 0)
             throw new FormatException($"Invalid interval '{span}'. Expected format 'Start-End'.");
 
@@ -92,7 +92,7 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
         if (span.IsEmpty)
             return false;
 
-        int dash = span.IndexOf('-');
+        int dash = IndexOfSeparator(span);
         if (dash < 0)
             return false;
 
@@ -105,6 +105,14 @@ public readonly partial record struct LongInterval : IComparable<LongInterval>
 
         result = new LongInterval(start, end);
         return true;
+    }
+
+    private static int IndexOfSeparator(ReadOnlySpan<char> span)
+    {
+        int offset = span.Length > 0 && span[0] == '-' ? 1 : 0;
+        int index = span[offset..].IndexOf('-');
+
+        return index < 0 ? -1 : index + offset;
     }
 
     /// <summary>

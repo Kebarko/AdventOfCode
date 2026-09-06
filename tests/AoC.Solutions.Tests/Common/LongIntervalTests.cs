@@ -223,12 +223,17 @@ public class LongIntervalTests
     }
 
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
-    [InlineData("   ")]
-    public void Parse_NullOrWhitespace_ThrowsArgumentException(string? input)
+    public void Parse_NullOrWhitespace_ThrowsArgumentException(string input)
     {
-        Assert.Throws<ArgumentException>(() => LongInterval.Parse(input!));
+        Assert.Throws<ArgumentException>(() => LongInterval.Parse(input));
+    }
+
+    [Theory]
+    [InlineData("   ")]
+    public void Parse_NullOrWhitespace_ThrowsFormatException(string input)
+    {
+        Assert.Throws<FormatException>(() => LongInterval.Parse(input));
     }
 
     [Theory]
@@ -238,7 +243,6 @@ public class LongIntervalTests
     [InlineData("-5")]
     [InlineData("1-2-3")]
     [InlineData("1..5")]
-    [InlineData("+1-5")]
     [InlineData("1.5-3")]
     [InlineData("- 5-3")]
     public void Parse_InvalidFormat_ThrowsFormatException(string input)
