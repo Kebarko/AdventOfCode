@@ -12,6 +12,10 @@ insert_final_newline = true
 indent_style = space
 indent_size = 4
 
+# C# files
+[*.cs]
+guidelines = 80 1px dotted 30FFA500, 100 1px dashed 30FF4500, 120 1px solid 30FF0000
+
 # Xml files
 [*.{xml,json}]
 indent_size = 2
