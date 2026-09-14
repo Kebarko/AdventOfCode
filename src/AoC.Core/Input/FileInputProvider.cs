@@ -20,8 +20,15 @@ public sealed class FileInputProvider(string root) : IInputProvider
         if (!File.Exists(path))
             throw new FileNotFoundException($"Input not found. Create the file at:\n{path}");
 
-        return File.ReadAllText(path, Encoding.UTF8);
+        return Normalize(File.ReadAllText(path, Encoding.UTF8));
     }
+
+    /// <summary>
+    /// Normalizes the raw input data by trimming any trailing carriage return and newline characters.
+    /// </summary>
+    /// <param name="raw">The raw input data.</param>
+    /// <returns>The normalized input data.</returns>
+    private static string Normalize(string raw) => raw.TrimEnd('\r', '\n');
 
     /// <summary>
     /// Locates the root directory containing the "inputs" folder by traversing up the directory tree from the application's base directory.
