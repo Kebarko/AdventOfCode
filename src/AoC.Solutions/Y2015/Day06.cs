@@ -2,7 +2,7 @@
 using KE.AoC.Solutions.Common;
 using System.Globalization;
 
-namespace KE.AoC.Solutions.to.Y015;
+namespace KE.AoC.Solutions.Y2015;
 
 /// <summary>
 /// --- Day 6: Probably a Fire Hazard ---
