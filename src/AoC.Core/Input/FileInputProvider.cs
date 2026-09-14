@@ -1,4 +1,6 @@
-﻿namespace KE.AoC.Core.Input;
+﻿using System.Text;
+
+namespace KE.AoC.Core.Input;
 
 /// <summary>
 /// Provides input data for Advent of Code puzzles from files located in a specified root directory.
@@ -18,7 +20,7 @@ public sealed class FileInputProvider(string root) : IInputProvider
         if (!File.Exists(path))
             throw new FileNotFoundException($"Input not found. Create the file at:\n{path}");
 
-        return File.ReadAllText(path);
+        return File.ReadAllText(path, Encoding.UTF8);
     }
 
     /// <summary>
