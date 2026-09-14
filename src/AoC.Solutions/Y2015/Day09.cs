@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 9: All in a Single Night ---
+/// </summary>
 [Solution(2015, 9)]
 public sealed class Day09 : SolutionBase
 {

@@ -3,11 +3,15 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 23: Opening the Turing Lock ---
+/// </summary>
 [Solution(2015, 23)]
 public sealed class Day23 : SolutionBase
 {
     /// <summary>
-    /// Executes the program defined in the input string with an initial value of 0 for register A, returning the final value of register B after execution.
+    /// Executes the program defined in the input string with an initial value of 0 for register A,
+    /// returning the final value of register B after execution.
     /// </summary>
     /// <param name="input">The input string containing the program.</param>
     /// <returns>The final value of register B after execution.</returns>
@@ -17,7 +21,8 @@ public sealed class Day23 : SolutionBase
     }
 
     /// <summary>
-    /// Executes the program defined in the input string with an initial value of 1 for register A, returning the final value of register B after execution.
+    /// Executes the program defined in the input string with an initial value of 1 for register A,
+    /// returning the final value of register B after execution.
     /// </summary>
     /// <param name="input">The input string containing the program.</param>
     /// <returns>The final value of register B after execution.</returns>
@@ -27,7 +32,8 @@ public sealed class Day23 : SolutionBase
     }
 
     /// <summary>
-    /// Runs the program defined in the input string with the specified initial value for register A, returning the final value of register B after execution.
+    /// Runs the program defined in the input string with the specified initial value for register A,
+    /// returning the final value of register B after execution.
     /// </summary>
     /// <param name="input">The input string containing the program.</param>
     /// <param name="initA">The initial value for register A.</param>
@@ -45,11 +51,15 @@ public sealed class Day23 : SolutionBase
     }
 
     /// <summary>
-    /// Executes the provided program on the given registers, modifying the registers in place according to the instructions in the program. The execution continues until the instruction pointer goes out of bounds of the program array.
+    /// Executes the provided program on the given registers, modifying the registers in place
+    /// according to the instructions in the program.
+    /// The execution continues until the instruction pointer goes out of bounds of the program array.
     /// </summary>
     /// <param name="program">The program to execute.</param>
     /// <param name="registers">The registers to use during execution.</param>
-    /// <exception cref="InvalidOperationException">Thrown when an invalid instruction is encountered.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when an invalid instruction is encountered.
+    /// </exception>
     private static void Execute(ReadOnlySpan<Instruction> program, Span<long> registers)
     {
         int i = 0;
@@ -87,7 +97,8 @@ public sealed class Day23 : SolutionBase
     }
 
     /// <summary>
-    /// Parses the entire program from the input string, splitting it into individual instructions and converting them into an array of Instruction objects.
+    /// Parses the entire program from the input string, splitting it into individual instructions
+    /// and converting them into an array of Instruction objects.
     /// </summary>
     /// <param name="input">The input string containing the program.</param>
     /// <returns>An array of Instruction objects representing the parsed program.</returns>
@@ -103,7 +114,8 @@ public sealed class Day23 : SolutionBase
     }
 
     /// <summary>
-    /// Parses a single instruction from a span of characters, determining its type, register (if applicable), and offset (if applicable).
+    /// Parses a single instruction from a span of characters, determining its type,
+    /// register (if applicable), and offset (if applicable).
     /// </summary>
     /// <param name="span">The span of characters containing the instruction.</param>
     /// <returns>The parsed instruction.</returns>
@@ -128,7 +140,8 @@ public sealed class Day23 : SolutionBase
         => int.Parse(span, NumberStyles.AllowLeadingSign, NumberFormatInfo.InvariantInfo);
 
     /// <summary>
-    /// Represents a single instruction in the program, including its type, register (if applicable), and offset (if applicable).
+    /// Represents a single instruction in the program, including its type,
+    /// register (if applicable), and offset (if applicable).
     /// </summary>
     /// <param name="Type">The type of the instruction.</param>
     /// <param name="Register">The register affected by the instruction, if applicable.</param>

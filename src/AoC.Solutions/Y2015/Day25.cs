@@ -4,6 +4,9 @@ using System.Text.RegularExpressions;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 25: Let It Snow ---
+/// </summary>
 [Solution(2015, 25)]
 public sealed partial class Day25 : SolutionBase
 {
@@ -12,7 +15,9 @@ public sealed partial class Day25 : SolutionBase
     /// </summary>
     /// <param name="input">The input string containing the row and column information.</param>
     /// <returns>The calculated code at the specified position.</returns>
-    /// <exception cref="FormatException">Thrown when the input does not match the expected format.</exception>
+    /// <exception cref="FormatException">
+    /// Thrown when the input does not match the expected format.
+    /// </exception>
     public override object PartOne(string input)
     {
         Regex regex = InputRegex();

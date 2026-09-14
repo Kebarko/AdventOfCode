@@ -2,11 +2,15 @@
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 3: Perfectly Spherical Houses in a Vacuum ---
+/// </summary>
 [Solution(2015, 3)]
 public sealed class Day03 : SolutionBase
 {
     /// <summary>
-    /// Calculates the number of unique positions visited by Santa based on the input string of directions.
+    /// Calculates the number of unique positions visited by Santa
+    /// based on the input string of directions.
     /// </summary>
     /// <param name="input">The input string of directions.</param>
     /// <returns>The number of unique positions visited.</returns>
@@ -28,7 +32,8 @@ public sealed class Day03 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the number of unique positions visited by Santa and Robo-Santa based on the input string of directions, where they take turns moving.
+    /// Calculates the number of unique positions visited by Santa and Robo-Santa
+    /// based on the input string of directions, where they take turns moving.
     /// </summary>
     /// <param name="input">The input string of directions.</param>
     /// <returns>The number of unique positions visited.</returns>

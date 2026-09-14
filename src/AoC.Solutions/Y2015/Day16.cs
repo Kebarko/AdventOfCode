@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 16: Aunt Sue ---
+/// </summary>
 [Solution(2015, 16)]
 public sealed class Day16 : SolutionBase
 {

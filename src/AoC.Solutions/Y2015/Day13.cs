@@ -4,11 +4,15 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 13: Knights of the Dinner Table ---
+/// </summary>
 [Solution(2015, 13)]
 public sealed class Day13 : SolutionBase
 {
     /// <summary>
-    /// Calculates the maximum happiness for all possible arrangements of family members based on the input.
+    /// Calculates the maximum happiness for all possible arrangements of family members
+    /// based on the input.
     /// </summary>
     /// <param name="input">The input string containing the family information.</param>
     /// <returns>The maximum happiness value.</returns>
@@ -18,7 +22,8 @@ public sealed class Day13 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the maximum happiness for all possible arrangements of family members based on the input including a neutral member.
+    /// Calculates the maximum happiness for all possible arrangements of family members
+    /// based on the input including a neutral member.
     /// </summary>
     /// <param name="input">The input string containing the family information.</param>
     /// <returns>The maximum happiness value.</returns>

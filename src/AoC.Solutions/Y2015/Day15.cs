@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 15: Science for Hungry People ---
+/// </summary>
 [Solution(2015, 15)]
 public sealed class Day15 : SolutionBase
 {
@@ -22,7 +25,8 @@ public sealed class Day15 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the maximum score for the optimal combination of teaspoons with a target calorie count.
+    /// Calculates the maximum score for the optimal combination of teaspoons
+    /// with a target calorie count.
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The maximum score.</returns>
@@ -34,7 +38,8 @@ public sealed class Day15 : SolutionBase
     }
 
     /// <summary>
-    /// Finds the maximum score for the given ingredients and teaspoons, optionally considering a target calorie count.
+    /// Finds the maximum score for the given ingredients and teaspoons,
+    /// optionally considering a target calorie count.
     /// </summary>
     /// <param name="ingredients">The list of ingredients.</param>
     /// <param name="teaspoons">The number of teaspoons.</param>
@@ -50,7 +55,8 @@ public sealed class Day15 : SolutionBase
     }
 
     /// <summary>
-    /// Recursively finds the maximum score for the given ingredients, remaining teaspoons, remaining ingredients, quantities, index, and optional target calories.
+    /// Recursively finds the maximum score for the given ingredients, remaining teaspoons,
+    /// remaining ingredients, quantities, index, and optional target calories.
     /// </summary>
     /// <param name="ingredients">The list of ingredients.</param>
     /// <param name="remTsps">The remaining teaspoons.</param>
@@ -99,7 +105,8 @@ public sealed class Day15 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the total score based on the given ingredients, their quantities, and an optional target calorie count.
+    /// Calculates the total score based on the given ingredients, their quantities,
+    /// and an optional target calorie count.
     /// </summary>
     /// <param name="ingredients">The list of ingredients.</param>
     /// <param name="quantities">The quantities of each ingredient.</param>

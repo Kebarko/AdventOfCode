@@ -3,6 +3,9 @@ using System.Text;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 10: Elves Look, Elves Say ---
+/// </summary>
 [Solution(2015, 10)]
 public sealed class Day10 : SolutionBase
 {

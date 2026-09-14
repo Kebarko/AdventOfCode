@@ -2,11 +2,15 @@
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 19: Medicine for Rudolph ---
+/// </summary>
 [Solution(2015, 19)]
 public sealed class Day19 : SolutionBase
 {
     /// <summary>
-    /// Calculates the number of distinct molecules that can be created by applying one replacement to the target molecule.
+    /// Calculates the number of distinct molecules that can be created by applying one replacement
+    /// to the target molecule.
     /// </summary>
     /// <param name="input">The input string containing the replacements and the target molecule.</param>
     /// <returns>The number of distinct molecules that can be created.</returns>
@@ -34,7 +38,8 @@ public sealed class Day19 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the minimum number of steps required to transform the target molecule into the molecule "e" using the given replacements.
+    /// Calculates the minimum number of steps required to transform the target molecule
+    /// into the molecule "e" using the given replacements.
     /// </summary>
     /// <param name="input">The input string containing the replacements and the target molecule.</param>
     /// <returns>The minimum number of steps required.</returns>
@@ -42,8 +47,10 @@ public sealed class Day19 : SolutionBase
     {
         (List<(string From, string To)> replacements, string molecule) = ParseInput(input.AsSpan());
 
-        // Sort the replacements in descending order of the length of the "To" string to prioritize longer replacements first.
-        // This is necessary for this specific input to ensure that we reduce the molecule in the fewest steps possible.
+        // Sort the replacements in descending order of the length of the "To" string
+        // to prioritize longer replacements first.
+        // This is necessary for this specific input to ensure
+        // that we reduce the molecule in the fewest steps possible.
         (string From, string To)[] reverse = [.. replacements.OrderByDescending(r => r.To.Length)];
 
         string current = molecule;

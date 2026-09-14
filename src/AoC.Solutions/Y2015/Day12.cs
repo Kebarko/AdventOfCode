@@ -3,11 +3,15 @@ using System.Text.Json.Nodes;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 12: JSAbacusFramework.io ---
+/// </summary>
 [Solution(2015, 12)]
 public sealed class Day12 : SolutionBase
 {
     /// <summary>
-    /// Calculates the sum of all integer values in the JSON input, regardless of any specific property values.
+    /// Calculates the sum of all integer values in the JSON input,
+    /// regardless of any specific property values.
     /// </summary>
     /// <param name="input">The JSON input string.</param>
     /// <returns>The sum of all integer values.</returns>
@@ -18,7 +22,8 @@ public sealed class Day12 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the sum of all integer values in the JSON input, excluding any objects that contain a property with the value "red".
+    /// Calculates the sum of all integer values in the JSON input,
+    /// excluding any objects that contain a property with the value "red".
     /// </summary>
     /// <param name="input">The JSON input string.</param>
     /// <returns>The sum of all integer values.</returns>
@@ -29,7 +34,8 @@ public sealed class Day12 : SolutionBase
     }
 
     /// <summary>
-    /// Gets the sum of the integer values in the given JsonNode, optionally excluding objects with a specific property value.
+    /// Gets the sum of the integer values in the given JsonNode,
+    /// optionally excluding objects with a specific property value.
     /// </summary>
     /// <param name="jsonNode">The JsonNode to sum.</param>
     /// <param name="exclProp">The property value to exclude.</param>
@@ -46,7 +52,8 @@ public sealed class Day12 : SolutionBase
     }
 
     /// <summary>
-    /// Gets the sum of the integer values in the given JsonObject, optionally excluding objects with a specific property value.
+    /// Gets the sum of the integer values in the given JsonObject,
+    /// optionally excluding objects with a specific property value.
     /// </summary>
     /// <param name="jsonObject">The JsonObject to sum.</param>
     /// <param name="exclProp">The property value to exclude.</param>
@@ -64,7 +71,8 @@ public sealed class Day12 : SolutionBase
     }
 
     /// <summary>
-    /// Gets the sum of the integer values in the given JsonArray, optionally excluding objects with a specific property value.
+    /// Gets the sum of the integer values in the given JsonArray,
+    /// optionally excluding objects with a specific property value.
     /// </summary>
     /// <param name="jsonArray">The JsonArray to sum.</param>
     /// <param name="exclProp">The property value to exclude.</param>

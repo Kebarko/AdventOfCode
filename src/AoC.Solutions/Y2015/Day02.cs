@@ -3,11 +3,15 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 2: I Was Told There Would Be No Math ---
+/// </summary>
 [Solution(2015, 2)]
 public sealed class Day02 : SolutionBase
 {
     /// <summary>
-    /// Calculates the total amount of wrapping paper needed for a list of boxes, given their dimensions in the format "AxBxC".
+    /// Calculates the total amount of wrapping paper needed for a list of boxes,
+    /// given their dimensions in the format "AxBxC".
     /// </summary>
     /// <param name="input">The input string containing box dimensions.</param>
     /// <returns>The total amount of wrapping paper needed.</returns>
@@ -32,7 +36,8 @@ public sealed class Day02 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the total amount of ribbon needed for a list of boxes, given their dimensions in the format "AxBxC".
+    /// Calculates the total amount of ribbon needed for a list of boxes,
+    /// given their dimensions in the format "AxBxC".
     /// </summary>
     /// <param name="input">The input string containing box dimensions.</param>
     /// <returns>The total amount of ribbon needed.</returns>
@@ -57,7 +62,9 @@ public sealed class Day02 : SolutionBase
     /// </summary>
     /// <param name="span">The span containing the box dimensions.</param>
     /// <returns>A tuple of integers representing the box dimensions (A, B, C).</returns>
-    /// <exception cref="ArgumentException">Thrown when the input string is not in the correct format.</exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown when the input string is not in the correct format.
+    /// </exception>
     private static (int A, int B, int C) ParseBox(ReadOnlySpan<char> span)
     {
         List<int> edges = [];

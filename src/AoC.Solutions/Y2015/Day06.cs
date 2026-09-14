@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.to.Y015;
 
+/// <summary>
+/// --- Day 6: Probably a Fire Hazard ---
+/// </summary>
 [Solution(2015, 6)]
 public sealed class Day06 : SolutionBase
 {
@@ -17,7 +20,9 @@ public sealed class Day06 : SolutionBase
     /// </summary>
     /// <param name="input">The input string containing the instructions.</param>
     /// <returns>The number of lights that are on.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when an invalid action is encountered.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when an invalid action is encountered.
+    /// </exception>
     public override object PartOne(string input)
     {
         List<Instruction> instructions = ParseInstructions(input);
@@ -50,7 +55,9 @@ public sealed class Day06 : SolutionBase
     /// </summary>
     /// <param name="input">The input string containing the instructions.</param>
     /// <returns>The total brightness of all lights.</returns>
-    /// <exception cref="InvalidOperationException">Thrown when an invalid action is encountered.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when an invalid action is encountered.
+    /// </exception>
     public override object PartTwo(string input)
     {
         List<Instruction> instructions = ParseInstructions(input);
@@ -95,7 +102,8 @@ public sealed class Day06 : SolutionBase
     }
 
     /// <summary>
-    /// Toggles the lights in the specified rectangular area of the grid (turns on lights that are off and turns off lights that are on).
+    /// Toggles the lights in the specified rectangular area of the grid
+    /// (turns on lights that are off and turns off lights that are on).
     /// </summary>
     /// <param name="grid">The grid of lights.</param>
     /// <param name="from">The starting point of the rectangular area.</param>
@@ -113,7 +121,8 @@ public sealed class Day06 : SolutionBase
     }
 
     /// <summary>
-    /// Adjusts the brightness of the lights in the specified rectangular area of the grid using the provided function.
+    /// Adjusts the brightness of the lights in the specified rectangular area of the grid
+    /// using the provided function.
     /// </summary>
     /// <param name="grid">The grid of lights.</param>
     /// <param name="from">The starting point of the rectangular area.</param>
@@ -132,7 +141,8 @@ public sealed class Day06 : SolutionBase
     }
 
     /// <summary>
-    /// Parses the input string into a list of Instruction records, each containing an action and the coordinates of the rectangular area to which the action applies.  
+    /// Parses the input string into a list of Instruction records, each containing an action
+    /// and the coordinates of the rectangular area to which the action applies.  
     /// </summary>
     /// <param name="input">The input string containing the instructions.</param>
     /// <returns>The list of parsed instructions.</returns>
@@ -148,11 +158,14 @@ public sealed class Day06 : SolutionBase
     }
 
     /// <summary>
-    /// Parses a single instruction from a string and returns an Instruction record containing the action and the coordinates of the rectangular area.
+    /// Parses a single instruction from a string and returns an Instruction record containing
+    /// the action and the coordinates of the rectangular area.
     /// </summary>
     /// <param name="span">The string containing the instruction.</param>
     /// <returns>The parsed instruction.</returns>
-    /// <exception cref="FormatException">Thrown when the string is not in the correct format.</exception>
+    /// <exception cref="FormatException">
+    /// Thrown when the string is not in the correct format.
+    /// </exception>
     private static Instruction ParseInstruction(ReadOnlySpan<char> span)
     {
         LightAction action;
@@ -192,7 +205,9 @@ public sealed class Day06 : SolutionBase
     /// </summary>
     /// <param name="span">The string containing the point coordinates.</param>
     /// <returns>The parsed point.</returns>
-    /// <exception cref="FormatException">Thrown when the string is not in the correct format.</exception>
+    /// <exception cref="FormatException">
+    /// Thrown when the string is not in the correct format.
+    /// </exception>
     private static Point2D<int> ParsePoint(ReadOnlySpan<char> span)
     {
         int comma = span.IndexOf(',');

@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 21: RPG Simulator 20XX ---
+/// </summary>
 [Solution(2015, 21)]
 public sealed class Day21 : SolutionBase
 {
@@ -81,7 +84,10 @@ public sealed class Day21 : SolutionBase
     }
 
     /// <summary>
-    /// Simulates a turn-based battle between two players, where each player takes turns attacking the other until one player's hit points reach zero or below. The damage dealt is calculated based on the attacker's damage and the defender's armor, with a minimum of 1 damage per attack. The method continues until one player is defeated.
+    /// Simulates a turn-based battle between two players, where each player takes turns
+    /// attacking the other until one player's hit points reach zero or below.
+    /// The damage dealt is calculated based on the attacker's damage and the defender's armor,
+    /// with a minimum of 1 damage per attack. The method continues until one player is defeated.
     /// </summary>
     /// <param name="player1">The first player.</param>
     /// <param name="player2">The second player.</param>
@@ -103,7 +109,8 @@ public sealed class Day21 : SolutionBase
     }
 
     /// <summary>
-    /// Generates all valid combinations of gear that can be equipped by the player, including one weapon, optional armor, and up to two rings.
+    /// Generates all valid combinations of gear that can be equipped by the player,
+    /// including one weapon, optional armor, and up to two rings.
     /// </summary>
     /// <returns>All valid gear combinations.</returns>
     private static IEnumerable<Gear> GetAllValidGears()
@@ -127,11 +134,14 @@ public sealed class Day21 : SolutionBase
     }
 
     /// <summary>
-    /// Parses the boss's properties from the input string and creates a new Boss instance with the extracted values.
+    /// Parses the boss's properties from the input string
+    /// and creates a new Boss instance with the extracted values.
     /// </summary>
     /// <param name="span">The input string containing the boss's properties.</param>
     /// <returns>The created Boss instance.</returns>
-    /// <exception cref="FormatException">Thrown when the input string is not in the expected format.</exception>
+    /// <exception cref="FormatException">
+    /// Thrown when the input string is not in the expected format.
+    /// </exception>
     private static Boss ParseBoss(ReadOnlySpan<char> span)
     {
         int? hitPoints = null;
@@ -171,47 +181,59 @@ public sealed class Day21 : SolutionBase
     private interface IPlayer
     {
         /// <summary>
-        /// Gets or sets the current hit points of the player. When the hit points reach zero or below, the player is defeated.
+        /// Gets or sets the current hit points of the player.
+        /// When the hit points reach zero or below, the player is defeated.
         /// </summary>
         int HitPoints { get; set; }
 
         /// <summary>
-        /// Gets the damage value of the player, which determines how much damage they can inflict on their opponent.
+        /// Gets the damage value of the player, which determines how much damage
+        /// they can inflict on their opponent.
         /// </summary>
         int Damage { get; }
 
         /// <summary>
-        /// Gets the armor value of the player, which reduces the amount of damage they take from their opponent's attacks.
+        /// Gets the armor value of the player, which reduces the amount of damage
+        /// they take from their opponent's attacks.
         /// </summary>
         int Armor { get; }
     }
 
     /// <summary>
-    /// Represents the player character in the game, which is equipped with a specific combination of gear (weapon, optional armor, and rings).
-    /// The player's hit points start at 100, and their damage and armor values are determined by the equipped gear.
+    /// Represents the player character in the game, which is equipped
+    /// with a specific combination of gear (weapon, optional armor, and rings).
+    /// The player's hit points start at 100, and their damage and armor values
+    /// are determined by the equipped gear.
     /// </summary>
     /// <param name="gear">The gear equipped by the player.</param>
     private sealed class Me(Gear gear) : IPlayer
     {
         /// <summary>
-        /// Gets or sets the current hit points of the player character. The player starts with 100 hit points, and when the hit points reach zero or below, the player is defeated.
+        /// Gets or sets the current hit points of the player character.
+        /// The player starts with 100 hit points,
+        /// and when the hit points reach zero or below, the player is defeated.
         /// </summary>
         public int HitPoints { get; set; } = 100;
 
         /// <summary>
-        /// Gets the damage value of the player character, which is determined by the equipped gear (weapon and rings). This value represents how much damage the player can inflict on their opponent.
+        /// Gets the damage value of the player character, which is determined
+        /// by the equipped gear (weapon and rings).
+        /// This value represents how much damage the player can inflict on their opponent.
         /// </summary>
         public int Damage { get; } = gear.TotalDamage;
 
         /// <summary>
-        /// Gets the armor value of the player character, which is determined by the equipped gear (optional armor and rings). This value represents how much damage the player can mitigate from their opponent's attacks.
+        /// Gets the armor value of the player character, which is determined
+        /// by the equipped gear (optional armor and rings).
+        /// This value represents how much damage the player can mitigate from their opponent's attacks.
         /// </summary>
         public int Armor { get; } = gear.TotalArmor;
     }
 
     /// <summary>
     /// Represents the boss character in the game, which has specific hit points, damage, and armor values.
-    /// The boss's properties are initialized based on the input provided, and they can be copied to create a new instance of the boss with the same attributes.
+    /// The boss's properties are initialized based on the input provided,
+    /// and they can be copied to create a new instance of the boss with the same attributes.
     /// </summary>
     /// <param name="hitpoints">The hit points of the boss.</param>
     /// <param name="damage">The damage value of the boss.</param>
@@ -219,22 +241,27 @@ public sealed class Day21 : SolutionBase
     private sealed class Boss(int hitpoints, int damage, int armor) : IPlayer
     {
         /// <summary>
-        /// Gets or sets the current hit points of the boss. The boss's hit points are initialized based on the input provided, and when the hit points reach zero or below, the boss is defeated.
+        /// Gets or sets the current hit points of the boss. The boss's hit points are initialized
+        /// based on the input provided, and when the hit points reach zero or below, the boss is defeated.
         /// </summary>
         public int HitPoints { get; set; } = hitpoints;
 
         /// <summary>
-        /// Gets the damage value of the boss, which is initialized based on the input provided. This value represents how much damage the boss can inflict on their opponent.
+        /// Gets the damage value of the boss, which is initialized based on the input provided.
+        /// This value represents how much damage the boss can inflict on their opponent.
         /// </summary>
         public int Damage { get; } = damage;
 
         /// <summary>
-        /// Gets the armor value of the boss, which is initialized based on the input provided. This value represents how much damage the boss can mitigate from their opponent's attacks.
+        /// Gets the armor value of the boss, which is initialized based on the input provided.
+        /// This value represents how much damage the boss can mitigate from their opponent's attacks.
         /// </summary>
         public int Armor { get; } = armor;
 
         /// <summary>
-        /// Initializes a new instance of the Boss class by copying the properties of an existing boss instance. This constructor allows for creating a new boss with the same hit points, damage, and armor values as the provided boss.
+        /// Initializes a new instance of the Boss class by copying the properties of an existing boss instance.
+        /// This constructor allows for creating a new boss
+        /// with the same hit points, damage, and armor values as the provided boss.
         /// </summary>
         /// <param name="boss">The boss instance to copy.</param>
         public Boss(Boss boss)
@@ -244,7 +271,8 @@ public sealed class Day21 : SolutionBase
     }
 
     /// <summary>
-    /// Represents a combination of gear that can be equipped by the player, including a weapon, optional armor, and up to two rings.
+    /// Represents a combination of gear that can be equipped by the player,
+    /// including a weapon, optional armor, and up to two rings.
     /// </summary>
     /// <param name="Weapon">The weapon to be equipped.</param>
     /// <param name="Armor">The optional armor to be equipped.</param>
@@ -252,23 +280,27 @@ public sealed class Day21 : SolutionBase
     private sealed record class Gear(Item Weapon, Item? Armor, Item[] Rings)
     {
         /// <summary>
-        /// Calculates the total cost of the gear, including the cost of the weapon, optional armor, and rings.
+        /// Calculates the total cost of the gear,
+        /// including the cost of the weapon, optional armor, and rings.
         /// </summary>
         public int TotalCost => Weapon.Cost + (Armor?.Cost ?? 0) + Rings.Sum(r => r.Cost);
 
         /// <summary>
-        /// Calculates the total damage provided by the gear, including the damage from the weapon and any rings.
+        /// Calculates the total damage provided by the gear,
+        /// including the damage from the weapon and any rings.
         /// </summary>
         public int TotalDamage => Weapon.Damage + Rings.Sum(r => r.Damage);
 
         /// <summary>
-        /// Calculates the total armor provided by the gear, including the armor from the optional armor and any rings.
+        /// Calculates the total armor provided by the gear,
+        /// including the armor from the optional armor and any rings.
         /// </summary>
         public int TotalArmor => (Armor?.Armor ?? 0) + Rings.Sum(r => r.Armor);
     }
 
     /// <summary>
-    /// Represents an item that can be equipped by the player or boss, such as a weapon, armor, or ring.
+    /// Represents an item that can be equipped by the player or boss,
+    /// such as a weapon, armor, or ring.
     /// </summary>
     /// <param name="Name">The name of the item.</param>
     /// <param name="Cost">The cost of the item.</param>

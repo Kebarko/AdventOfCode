@@ -2,14 +2,20 @@
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 8: Matchsticks ---
+/// </summary>
 [Solution(2015, 8)]
 public sealed class Day08 : SolutionBase
 {
     /// <summary>
-    /// Calculates the difference between the number of characters of code for string literals and the number of characters in memory for the values of the strings.
+    /// Calculates the difference between the number of characters of code for string literals
+    /// and the number of characters in memory for the values of the strings.
     /// </summary>
     /// <param name="input">The input string containing the string literals.</param>
-    /// <returns>The difference between the number of characters of code and the number of characters in memory.</returns>
+    /// <returns>
+    /// The difference between the number of characters of code and the number of characters in memory.
+    /// </returns>
     public override object PartOne(string input)
     {
         // number of characters of code for string literals
@@ -35,10 +41,14 @@ public sealed class Day08 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the difference between the total number of characters to represent the newly encoded strings and the number of characters of code in each original string literal.
+    /// Calculates the difference between the total number of characters to represent the newly encoded strings
+    /// and the number of characters of code in each original string literal.
     /// </summary>
     /// <param name="input">The input string containing the string literals.</param>
-    /// <returns>The difference between the total number of characters to represent the newly encoded strings and the number of characters of code in each original string literal.</returns>
+    /// <returns>
+    /// The difference between the total number of characters to represent the newly encoded strings
+    /// and the number of characters of code in each original string literal.
+    /// </returns>
     public override object PartTwo(string input)
     {
         // number of characters of code in each original string literal

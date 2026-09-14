@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 14: Reindeer Olympics ---
+/// </summary>
 [Solution(2015, 14)]
 public sealed class Day14 : SolutionBase
 {

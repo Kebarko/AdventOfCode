@@ -4,11 +4,14 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 20: Infinite Elves and Infinite Houses ---
+/// </summary>
 [Solution(2015, 20)]
 public sealed class Day20 : SolutionBase
 {
     /// <summary>
-    /// Calculates the lowest house number that receives at least a specified number of presents for part one of the puzzle.
+    /// Calculates the lowest house number that receives at least a specified number of presents.
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The lowest house number that receives at least the specified number of presents.</returns>
@@ -18,7 +21,7 @@ public sealed class Day20 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the lowest house number that receives at least a specified number of presents for part two of the puzzle.
+    /// Calculates the lowest house number that receives at least a specified number of presents.
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The lowest house number that receives at least the specified number of presents.</returns>
@@ -34,7 +37,9 @@ public sealed class Day20 : SolutionBase
     /// <param name="presentsPerElf">The number of presents each elf delivers.</param>
     /// <param name="maxHouses">The maximum number of houses an elf can visit.</param>
     /// <returns>The lowest house number that receives at least the specified number of presents.</returns>
-    /// <exception cref="UnreachableException">Thrown when no house receives the specified number of presents.</exception>
+    /// <exception cref="UnreachableException">
+    /// Thrown when no house receives the specified number of presents.
+    /// </exception>
     private static int GetLowestHouse(int presents, int presentsPerElf, int maxHouses)
     {
         int limit = presents / presentsPerElf + 1;

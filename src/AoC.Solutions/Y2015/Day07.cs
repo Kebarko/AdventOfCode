@@ -3,11 +3,15 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 7: Some Assembly Required ---
+/// </summary>
 [Solution(2015, 7)]
 public sealed class Day07 : SolutionBase
 {
     /// <summary>
-    /// Runs the circuit simulation for part one of the problem, returning the value of wire "a" based on the provided input string.
+    /// Runs the circuit simulation for part one of the problem, returning the value of wire "a"
+    /// based on the provided input string.
     /// </summary>
     /// <param name="input">The input string representing the circuit.</param>
     /// <returns>The value of wire "a".</returns>
@@ -17,7 +21,8 @@ public sealed class Day07 : SolutionBase
     }
 
     /// <summary>
-    /// Runs the circuit simulation for part two of the problem, returning the value of wire "a" based on the provided input string, with wire "b" overridden to have a value of 956.
+    /// Runs the circuit simulation for part two of the problem, returning the value of wire "a"
+    /// based on the provided input string, with wire "b" overridden to have a value of 956.
     /// </summary>
     /// <param name="input">The input string representing the circuit.</param>
     /// <returns>The value of wire "a".</returns>
@@ -33,7 +38,9 @@ public sealed class Day07 : SolutionBase
     /// <param name="wire">The wire whose value is to be returned.</param>
     /// <param name="cache">A dictionary used to cache computed wire values.</param>
     /// <returns>The value of the specified wire.</returns>
-    /// <exception cref="InvalidOperationException"></exception>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when an invalid gate is encountered.
+    /// </exception>
     private static ushort Run(ReadOnlySpan<char> span, string wire, Dictionary<string, ushort> cache)
     {
         Dictionary<string, Gate> gateMap = ParseGates(span).ToDictionary(g => g.Output);
@@ -104,7 +111,8 @@ public sealed class Day07 : SolutionBase
     }
 
     /// <summary>
-    /// Parses an operand from a span of characters, returning either a Literal or a WireRef depending on the content of the span.
+    /// Parses an operand from a span of characters, returning either a Literal or a WireRef
+    /// depending on the content of the span.
     /// </summary>
     /// <param name="span">The span of characters to parse.</param>
     /// <returns>The parsed operand.</returns>
@@ -142,14 +150,16 @@ public sealed class Day07 : SolutionBase
     private sealed record class Assign(Operand Value, string Output) : Gate(Output);
 
     /// <summary>
-    /// Represents a NOT gate in the circuit, which performs a bitwise NOT operation on its input and assigns the result to an output wire.
+    /// Represents a NOT gate in the circuit, which performs a bitwise NOT operation on its input
+    /// and assigns the result to an output wire.
     /// </summary>
     /// <param name="Input">The input wire of the gate.</param>
     /// <param name="Output">The output wire of the gate.</param>
     private sealed record class Not(Operand Input, string Output) : Gate(Output);
 
     /// <summary>
-    /// Represents a binary gate in the circuit, which performs a binary operation (AND, OR, LSHIFT, RSHIFT) on its two input operands and assigns the result to an output wire.
+    /// Represents a binary gate in the circuit, which performs a binary operation (AND, OR, LSHIFT, RSHIFT)
+    /// on its two input operands and assigns the result to an output wire.
     /// </summary>
     /// <param name="Op">The binary operation to perform.</param>
     /// <param name="Left">The left input operand.</param>

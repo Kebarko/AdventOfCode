@@ -3,16 +3,26 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 22: Wizard Simulator 20XX ---
+/// </summary>
 [Solution(2015, 22)]
 public sealed class Day22 : SolutionBase
 {
     private static ReadOnlySpan<int> Costs => [53, 73, 113, 173, 229];
 
     /// <summary>
-    /// Calculates the least amount of mana spent to defeat the boss in normal mode, given the player's and boss's initial hit points and damage. Returns 0 if no winning sequence is found.
+    /// Calculates the least amount of mana spent to defeat the boss in normal mode,
+    /// given the player's and boss's initial hit points and damage.
+    /// Returns 0 if no winning sequence is found.
     /// </summary>
-    /// <param name="input">The input string containing the player's and boss's initial hit points and damage.</param>
-    /// <returns>The least amount of mana spent to defeat the boss in normal mode, or 0 if no winning sequence is found.</returns>
+    /// <param name="input">
+    /// The input string containing the player's and boss's initial hit points and damage.
+    /// </param>
+    /// <returns>
+    /// The least amount of mana spent to defeat the boss in normal mode,
+    /// or 0 if no winning sequence is found.
+    /// </returns>
     public override object PartOne(string input)
     {
         (int HitPoints, int Damage) = ParseBoss(input);
@@ -21,10 +31,17 @@ public sealed class Day22 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the least amount of mana spent to defeat the boss in hard mode, given the player's and boss's initial hit points and damage. Returns 0 if no winning sequence is found.
+    /// Calculates the least amount of mana spent to defeat the boss in hard mode,
+    /// given the player's and boss's initial hit points and damage.
+    /// Returns 0 if no winning sequence is found.
     /// </summary>
-    /// <param name="input">The input string containing the boss's hit points and damage.</param>
-    /// <returns>The least amount of mana spent to defeat the boss in hard mode, or 0 if no winning sequence is found.</returns>
+    /// <param name="input">
+    /// The input string containing the boss's hit points and damage.
+    /// </param>
+    /// <returns>
+    /// The least amount of mana spent to defeat the boss in hard mode,
+    /// or 0 if no winning sequence is found.
+    /// </returns>
     public override object PartTwo(string input)
     {
         (int HitPoints, int Damage) = ParseBoss(input);
@@ -33,14 +50,18 @@ public sealed class Day22 : SolutionBase
     }
 
     /// <summary>
-    /// Solves the game by simulating all possible sequences of spell casts and boss attacks, returning the minimum amount of mana spent to defeat the boss. If no winning sequence is found, returns 0.
+    /// Solves the game by simulating all possible sequences of spell casts and boss attacks,
+    /// returning the minimum amount of mana spent to defeat the boss.
+    /// If no winning sequence is found, returns 0.
     /// </summary>
     /// <param name="playerHitPoints">The hit points of the player.</param>
     /// <param name="mana">The amount of mana available.</param>
     /// <param name="bossHitPoints">The hit points of the boss.</param>
     /// <param name="bossDamage">The damage dealt by the boss.</param>
     /// <param name="hardMode">Indicates whether hard mode is enabled.</param>
-    /// <returns>The least amount of mana spent to defeat the boss, or 0 if no winning sequence is found.</returns>
+    /// <returns>
+    /// The least amount of mana spent to defeat the boss, or 0 if no winning sequence is found.
+    /// </returns>
     private static int Solve(int playerHitPoints, int mana, int bossHitPoints, int bossDamage, bool hardMode)
     {
         State state = new()
@@ -57,7 +78,9 @@ public sealed class Day22 : SolutionBase
     }
 
     /// <summary>
-    /// Simulates the player's turn in the game, exploring all possible spell casts and recursively simulating the boss's turn. Updates the best mana spent if a winning path is found.
+    /// Simulates the player's turn in the game, exploring all possible spell casts
+    /// and recursively simulating the boss's turn.
+    /// Updates the best mana spent if a winning path is found.
     /// </summary>
     /// <param name="state">The current game state.</param>
     /// <param name="bossDamage">The damage dealt by the boss.</param>
@@ -116,7 +139,8 @@ public sealed class Day22 : SolutionBase
     }
 
     /// <summary>
-    /// Applies the effects of active spells to the current game state, updating timers and hit points as necessary.
+    /// Applies the effects of active spells to the current game state,
+    /// updating timers and hit points as necessary.
     /// </summary>
     /// <param name="state">The current game state.</param>
     private static void ApplyEffects(ref State state)
@@ -138,7 +162,8 @@ public sealed class Day22 : SolutionBase
     }
 
     /// <summary>
-    /// Attempts to cast a spell, updating the game state accordingly. Returns false if the spell cannot be cast (e.g., due to insufficient mana or an active effect).
+    /// Attempts to cast a spell, updating the game state accordingly.
+    /// Returns false if the spell cannot be cast (e.g., due to insufficient mana or an active effect).
     /// </summary>
     /// <param name="spell">The spell to cast.</param>
     /// <param name="state">The current game state.</param>

@@ -2,6 +2,9 @@
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 1: Not Quite Lisp ---
+/// </summary>
 [Solution(2015, 1)]
 public sealed class Day01 : SolutionBase
 {
@@ -21,7 +24,10 @@ public sealed class Day01 : SolutionBase
     /// Calculates the position of the first character that causes the floor to become negative.
     /// </summary>
     /// <param name="input">The input string containing '(' and ')' characters.</param>
-    /// <returns>The 1-based position of the first character that causes the floor to become negative, or -1 if it never becomes negative.</returns>
+    /// <returns>
+    /// The 1-based position of the first character that causes the floor to become negative,
+    /// or -1 if it never becomes negative.
+    /// </returns>
     public override object PartTwo(string input)
     {
         ReadOnlySpan<char> span = input.AsSpan();

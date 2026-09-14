@@ -3,13 +3,17 @@ using KE.AoC.Solutions.Common;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 18: Like a GIF For Your Yard ---
+/// </summary>
 [Solution(2015, 18)]
 public sealed class Day18 : SolutionBase
 {
     private const int Steps = 100;
 
     /// <summary>
-    /// Simulates the grid of lights for a given number of steps and returns the number of lights that are on after the simulation.
+    /// Simulates the grid of lights for a given number of steps
+    /// and returns the number of lights that are on after the simulation.
     /// </summary>
     /// <param name="input">The input string representing the initial state of the grid.</param>
     /// <returns>The number of lights that are on after the simulation.</returns>
@@ -19,7 +23,9 @@ public sealed class Day18 : SolutionBase
     }
 
     /// <summary>
-    /// Simulates the grid of lights for a given number of steps, keeping the corners fixed (always on), and returns the number of lights that are on after the simulation.
+    /// Simulates the grid of lights for a given number of steps,
+    /// keeping the corners fixed (always on),
+    /// and returns the number of lights that are on after the simulation.
     /// </summary>
     /// <param name="input">The input string representing the initial state of the grid.</param>
     /// <returns>The number of lights that are on after the simulation.</returns>
@@ -29,7 +35,8 @@ public sealed class Day18 : SolutionBase
     }
 
     /// <summary>
-    /// Simulates the grid of lights for a given number of steps, optionally keeping the corners fixed (always on).
+    /// Simulates the grid of lights for a given number of steps,
+    /// optionally keeping the corners fixed (always on).
     /// </summary>
     /// <param name="input">The input string representing the initial state of the grid.</param>
     /// <param name="fixedCorners">Indicates whether the corners should be kept fixed (always on).</param>

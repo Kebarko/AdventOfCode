@@ -2,6 +2,9 @@
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 5: Doesn't He Have Intern-Elves For This? ---
+/// </summary>
 [Solution(2015, 5)]
 public sealed class Day05 : SolutionBase
 {
@@ -45,8 +48,10 @@ public sealed class Day05 : SolutionBase
 
     /// <summary>
     /// Calculates the number of "nice" strings based on updated criteria:
-    /// 1. The string must contain a pair of any two letters that appears at least twice in the string without overlapping.
-    /// 2. The string must contain at least one letter which repeats with exactly one letter between them (e.g., "xyx", "aba").
+    /// 1. The string must contain a pair of any two letters that appears
+    ///     at least twice in the string without overlapping.
+    /// 2. The string must contain at least one letter which repeats with
+    ///     exactly one letter between them (e.g., "xyx", "aba").
     /// </summary>
     /// <param name="input">The input string containing lines to evaluate.</param>
     /// <returns>The number of "nice" strings.</returns>

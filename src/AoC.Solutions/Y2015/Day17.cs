@@ -3,6 +3,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 17: No Such Thing as Too Much ---
+/// </summary>
 [Solution(2015, 17)]
 public sealed class Day17 : SolutionBase
 {
@@ -28,7 +31,8 @@ public sealed class Day17 : SolutionBase
     }
 
     /// <summary>
-    /// Counts the number of combinations of containers that can fill the target volume using the minimum number of containers.
+    /// Counts the number of combinations of containers that can fill the target volume
+    /// using the minimum number of containers.
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The number of combinations.</returns>

@@ -3,6 +3,9 @@ using System.Numerics;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 11: Corporate Policy ---
+/// </summary>
 [Solution(2015, 11)]
 public sealed class Day11 : SolutionBase
 {
@@ -27,7 +30,8 @@ public sealed class Day11 : SolutionBase
     }
 
     /// <summary>
-    /// Finds the next valid password after the given password by incrementing it until a valid password is found. It can also find the next valid password after a specified number of steps.
+    /// Finds the next valid password after the given password by incrementing it until a valid password is found.
+    /// It can also find the next valid password after a specified number of steps.
     /// </summary>
     /// <param name="password">The password to find the next valid password for.</param>
     /// <param name="steps">The number of steps to take.</param>
@@ -53,7 +57,9 @@ public sealed class Day11 : SolutionBase
     /// Advances the given password to the next valid password by incrementing it until a valid password is found.
     /// </summary>
     /// <param name="password">The password to advance.</param>
-    /// <exception cref="InvalidOperationException">Thrown when there is no valid password greater than the given one.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown when there is no valid password greater than the given one.
+    /// </exception>
     private static void Advance(Span<char> password)
     {
         do
@@ -65,7 +71,8 @@ public sealed class Day11 : SolutionBase
     }
 
     /// <summary>
-    /// Skips over any forbidden characters ('i', 'l', 'o') in the given password by incrementing them to the next valid character and filling the subsequent characters with 'a'.
+    /// Skips over any forbidden characters ('i', 'l', 'o') in the given password by incrementing them
+    /// to the next valid character and filling the subsequent characters with 'a'.
     /// </summary>
     /// <param name="password"></param>
     private static void SkipForbidden(Span<char> password)
@@ -85,7 +92,8 @@ public sealed class Day11 : SolutionBase
     /// <summary>
     /// Increments the given password by one, treating it as a base-26 number with 'a' as 0 and 'z' as 25.
     /// If the password reaches 'z', it wraps around to 'a' and carries over to the next character.
-    /// The method also skips over forbidden characters ('i', 'l', 'o') by incrementing them to the next valid character.
+    /// The method also skips over forbidden characters ('i', 'l', 'o')
+    /// by incrementing them to the next valid character.
     /// </summary>
     /// <param name="password">The password to increment.</param>
     /// <returns>True if the password was incremented successfully, false otherwise.</returns>
@@ -151,7 +159,9 @@ public sealed class Day11 : SolutionBase
     /// Validates the input password to ensure it is not empty and consists of lowercase letters only.
     /// </summary>
     /// <param name="password">The password to validate.</param>
-    /// <exception cref="ArgumentException">Thrown when the password is empty or contains invalid characters.</exception>
+    /// <exception cref="ArgumentException">
+    /// Thrown when the password is empty or contains invalid characters.
+    /// </exception>
     private static void Validate(ReadOnlySpan<char> password)
     {
         if (password.IsEmpty)

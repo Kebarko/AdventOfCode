@@ -3,11 +3,16 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 24: It Hangs in the Balance ---
+/// </summary>
 [Solution(2015, 24)]
 public sealed class Day24 : SolutionBase
 {
     /// <summary>
-    /// Calculates the minimum quantum entanglement (QE) for dividing the given weights into three groups with equal weight. The QE is defined as the product of the weights in the first group.
+    /// Calculates the minimum quantum entanglement (QE) for dividing the given weights
+    /// into three groups with equal weight.
+    /// The QE is defined as the product of the weights in the first group.
     /// </summary>
     /// <param name="input">The input string containing the weights.</param>
     /// <returns>The minimum quantum entanglement (QE).</returns>
@@ -19,7 +24,9 @@ public sealed class Day24 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the minimum quantum entanglement (QE) for dividing the given weights into four groups with equal weight. The QE is defined as the product of the weights in the first group.
+    /// Calculates the minimum quantum entanglement (QE) for dividing the given weights
+    /// into four groups with equal weight.
+    /// The QE is defined as the product of the weights in the first group.
     /// </summary>
     /// <param name="input">The input string containing the weights.</param>
     /// <returns>The minimum quantum entanglement (QE).</returns>
@@ -31,7 +38,9 @@ public sealed class Day24 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the minimum quantum entanglement (QE) for dividing the given weights into the specified number of groups with equal weight. The QE is defined as the product of the weights in the first group.
+    /// Calculates the minimum quantum entanglement (QE) for dividing the given weights
+    /// into the specified number of groups with equal weight.
+    /// The QE is defined as the product of the weights in the first group.
     /// </summary>
     /// <param name="weights">The list of weights to divide.</param>
     /// <param name="groups">The number of groups to divide the weights into.</param>
@@ -45,7 +54,8 @@ public sealed class Day24 : SolutionBase
     }
 
     /// <summary>
-    /// Generates all combinations of the smallest size from the provided list of items that sum up to the specified target sum.
+    /// Generates all combinations of the smallest size from the provided list of items
+    /// that sum up to the specified target sum.
     /// </summary>
     /// <param name="items">The list of items to combine.</param>
     /// <param name="targetSum">The target sum to achieve.</param>
@@ -92,7 +102,8 @@ public sealed class Day24 : SolutionBase
     }
 
     /// <summary>
-    /// Parses the input span into a list of integer weights, where each line in the span represents a weight.
+    /// Parses the input span into a list of integer weights,
+    /// where each line in the span represents a weight.
     /// </summary>
     /// <param name="span">The input span containing the weights.</param>
     /// <returns>A list of integer weights.</returns>

@@ -4,11 +4,15 @@ using System.Text;
 
 namespace KE.AoC.Solutions.Y2015;
 
+/// <summary>
+/// --- Day 4: The Ideal Stocking Stuffer ---
+/// </summary>
 [Solution(2015, 4)]
 public sealed class Day04 : SolutionBase
 {
     /// <summary>
-    /// Finds the lowest integer that, when appended to the input string and hashed with MD5, produces a hash with five leading zeroes.
+    /// Finds the lowest integer that, when appended to the input string and hashed with MD5,
+    /// produces a hash with five leading zeroes.
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The lowest integer that satisfies the condition.</returns>
@@ -18,7 +22,8 @@ public sealed class Day04 : SolutionBase
     }
 
     /// <summary>
-    /// Finds the lowest integer that, when appended to the input string and hashed with MD5, produces a hash with six leading zeroes.
+    /// Finds the lowest integer that, when appended to the input string and hashed with MD5,
+    /// produces a hash with six leading zeroes.
     /// </summary>
     /// <param name="input">The input string.</param>
     /// <returns>The lowest integer that satisfies the condition.</returns>
@@ -28,7 +33,9 @@ public sealed class Day04 : SolutionBase
     }
 
     /// <summary>
-    /// Mines the input string for the lowest integer that, when appended to the input and hashed with MD5, produces a hash with the specified number of leading zeroes.
+    /// Mines the input string for the lowest integer that,
+    /// when appended to the input and hashed with MD5,
+    /// produces a hash with the specified number of leading zeroes.
     /// </summary>
     /// <param name="input">The input string to mine.</param>
     /// <param name="zeroDigits">The number of leading zeroes to look for.</param>
