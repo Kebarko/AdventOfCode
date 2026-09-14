@@ -17,7 +17,8 @@ public sealed class Day01 : SolutionBase
     private static readonly Point2D<int>[] Steps = [new(0, 1), new(1, 0), new(0, -1), new(-1, 0)];
 
     /// <summary>
-    /// Calculates the Manhattan distance from the origin to the final position after following the instructions.
+    /// Calculates the Manhattan distance from the origin to the final position
+    /// after following the instructions.
     /// </summary>
     /// <param name="input">The input instructions.</param>
     /// <returns>The Manhattan distance.</returns>
@@ -40,7 +41,8 @@ public sealed class Day01 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the Manhattan distance to the first location visited twice after following the instructions.
+    /// Calculates the Manhattan distance to the first location visited twice
+    /// after following the instructions.
     /// </summary>
     /// <param name="input">The input instructions.</param>
     /// <returns>The Manhattan distance.</returns>
@@ -78,21 +80,14 @@ public sealed class Day01 : SolutionBase
     /// <param name="direction">The current direction.</param>
     /// <param name="rotation">The rotation value.</param>
     /// <returns>The new direction.</returns>
-    /// <exception cref="InvalidOperationException">
-    /// Thrown when an invalid rotation value is provided.
-    /// </exception>
-    private static int Turn(int direction, int rotation) => rotation switch
-    {
-        1 => (direction + 1) % 4,      // Right
-        -1 => (direction - 1 + 4) % 4, // Left
-        _ => throw new InvalidOperationException("Invalid rotation.")
-    };
+    private static int Turn(int direction, int rotation) => (direction + rotation + 4) % 4;
 
     /// <summary>
     /// Parses the input instructions into a list of tuples containing rotation and distance.
     /// </summary>
     /// <param name="span">The input span containing the instructions.</param>
     /// <returns>A list of tuples representing the rotation and distance for each instruction.</returns>
+    /// <exception cref="FormatException">Thrown when the input format is invalid.</exception>
     private static List<(int, int)> ParseInstructions(ReadOnlySpan<char> span)
     {
         List<(int, int)> result = [];
