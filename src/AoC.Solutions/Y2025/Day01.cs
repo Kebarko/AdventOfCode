@@ -3,12 +3,18 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 1: Secret Entrance ---
+/// </summary>
 [Solution(2025, 1)]
 public sealed class Day01 : SolutionBase
 {
     /// <summary>
-    /// Calculates the number of times the pointer lands on zero after performing a series of rotations.
+    /// Calculates the number of times the pointer lands on zero after performing a series of rotations,
+    /// without considering multiple full rotations.
     /// </summary>
+    /// <param name="input">The input string containing the rotation information.</param>
+    /// <returns>The number of times the pointer lands on zero.</returns>
     public override object PartOne(string input)
     {
         const int size = 100;
@@ -40,8 +46,11 @@ public sealed class Day01 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the number of times the pointer lands on zero after performing a series of rotations, taking into account multiple full rotations.
+    /// Calculates the number of times the pointer lands on zero after performing a series of rotations,
+    /// taking into account multiple full rotations.
     /// </summary>
+    /// <param name="input">The input string containing the rotation information.</param>
+    /// <returns>The number of times the pointer lands on zero.</returns>
     public override object PartTwo(string input)
     {
         const int size = 100;

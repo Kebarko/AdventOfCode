@@ -4,12 +4,18 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 8: Playground ---
+/// </summary>
 [Solution(2025, 8)]
 public sealed class Day08 : SolutionBase
 {
     /// <summary>
-    /// Calculates the product of the sizes of the three largest connected components formed by connecting specified number of shortest edges between points in 3D space.
+    /// Calculates the product of the sizes of the three largest connected components formed
+    /// by connecting specified number of shortest edges between points in 3D space.
     /// </summary>
+    /// <param name="input">The input string containing the 3D points.</param>
+    /// <returns>The product of the sizes of the three largest connected components.</returns>
     public override object PartOne(string input)
     {
         List<Point3D<int>> points = ParsePoints(input.AsSpan());
@@ -30,8 +36,12 @@ public sealed class Day08 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the product of the sizes of the three largest connected components formed by connecting all shortest edges between points in 3D space until only one connected component remains.
+    /// Calculates the product of the sizes of the three largest connected components formed
+    /// by connecting all shortest edges between points in 3D space
+    /// until only one connected component remains.
     /// </summary>
+    /// <param name="input">The input string containing the 3D points.</param>
+    /// <returns>The product of the sizes of the three largest connected components.</returns>
     public override object PartTwo(string input)
     {
         List<Point3D<int>> points = ParsePoints(input.AsSpan());
@@ -54,8 +64,10 @@ public sealed class Day08 : SolutionBase
     }
 
     /// <summary>
-    /// Parses the input string into a list of 3D points represented by Point3D<int> objects.
+    /// Parses a string representation of 3D points into a list of Point3D<int> objects.
     /// </summary>
+    /// <param name="span">The span containing the input string.</param>
+    /// <returns>The list of 3D points.</returns>
     private static List<Point3D<int>> ParsePoints(ReadOnlySpan<char> span)
     {
         List<Point3D<int>> result = [];
@@ -79,8 +91,12 @@ public sealed class Day08 : SolutionBase
     }
 
     /// <summary>
-    /// Finds the specified number of shortest edges between points in a 3D space and returns them as a collection of tuples representing the indices of the connected points.
+    /// Finds the specified number of shortest edges between points in a 3D space
+    /// and returns them as a collection of tuples representing the indices of the connected points.
     /// </summary>
+    /// <param name="points">The list of 3D points.</param>
+    /// <param name="count">The number of shortest edges to find.</param>
+    /// <returns>The collection of shortest edges.</returns>
     private static IEnumerable<(int I, int J)> ShortestEdges(List<Point3D<int>> points, int count)
     {
         var queue = new PriorityQueue<(int I, int J), long>(Comparer<long>.Create((x, y) => y.CompareTo(x)));
@@ -106,8 +122,11 @@ public sealed class Day08 : SolutionBase
     }
 
     /// <summary>
-    /// Finds all edges between points in a 3D space and returns them as a collection of tuples representing the indices of the connected points, ordered by their squared distances.
+    /// Finds all edges between points in a 3D space and returns them as a collection of tuples
+    /// representing the indices of the connected points, ordered by their squared distances.
     /// </summary>
+    /// <param name="points">The list of 3D points.</param>
+    /// <returns>The collection of all edges.</returns>
     private static IEnumerable<(int I, int J)> AllEdges(List<Point3D<int>> points)
     {
         var list = new List<(int I, int J, long Distance)>();

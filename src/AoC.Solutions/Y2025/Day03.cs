@@ -2,28 +2,41 @@
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 3: Lobby ---
+/// </summary>
 [Solution(2025, 3)]
 public sealed class Day03 : SolutionBase
 {
     /// <summary>
-    /// Calculates the sum of the maximum bank values that can be formed by selecting 2 digits from each bank in the input.
+    /// Calculates the sum of the maximum bank values that can be formed
+    /// by selecting 2 digits from each bank in the input.
     /// </summary>
+    /// <param name="input">The input string containing the bank information.</param>
+    /// <returns>The sum of the maximum bank values.</returns>
     public override object PartOne(string input)
     {
         return Part(input.AsSpan(), 2);
     }
 
     /// <summary>
-    /// Calculates the sum of the maximum bank values that can be formed by selecting 12 digits from each bank in the input.
+    /// Calculates the sum of the maximum bank values that can be formed
+    /// by selecting 12 digits from each bank in the input.
     /// </summary>
+    /// <param name="input">The input string containing the bank information.</param>
+    /// <returns>The sum of the maximum bank values.</returns>
     public override object PartTwo(string input)
     {
         return Part(input.AsSpan(), 12);
     }
 
     /// <summary>
-    /// Calculates the sum of the maximum bank values that can be formed by selecting a specified number of digits from each bank in the input.
+    /// Calculates the sum of the maximum bank values that can be formed by selecting
+    /// a specified number of digits from each bank in the input.
     /// </summary>
+    /// <param name="span">The span containing the bank information.</param>
+    /// <param name="digits">The number of digits to select from each bank.</param>
+    /// <returns>The sum of the maximum bank values.</returns>
     private static ulong Part(ReadOnlySpan<char> span, int digits)
     {
         ulong result = 0;
@@ -38,6 +51,8 @@ public sealed class Day03 : SolutionBase
     /// <summary>
     /// Parses a string representation of a bank into an array of integers.
     /// </summary>
+    /// <param name="span">The span containing the bank information.</param>
+    /// <returns>An array of integers representing the bank values.</returns>
     private static int[] ParseBank(ReadOnlySpan<char> span)
     {
         int[] result = new int[span.Length];
@@ -51,8 +66,12 @@ public sealed class Day03 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the maximum bank value that can be formed by selecting a specified number of digits from the given array of battery values.
+    /// Calculates the maximum bank value that can be formed by selecting
+    /// a specified number of digits from the given array of battery values.
     /// </summary>
+    /// <param name="batteries">An array of integers representing the battery values.</param>
+    /// <param name="digits">The number of digits to select from each bank.</param>
+    /// <returns>The maximum bank value.</returns>
     private static ulong CalculateMaxBankValue(int[] batteries, int digits)
     {
         if (batteries.Length < digits)

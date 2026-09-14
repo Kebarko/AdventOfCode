@@ -3,9 +3,17 @@ using KE.AoC.Solutions.Common;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 7: Laboratories ---
+/// </summary>
 [Solution(2025, 7)]
 public sealed class Day07 : SolutionBase
 {
+    /// <summary>
+    /// Calculates the number of splits in the grid based on the input string.
+    /// </summary>
+    /// <param name="input">The input string representing the grid.</param>
+    /// <returns>The number of splits.</returns>
     public override object PartOne(string input)
     {
         Grid<char> grid = Grid.OfChars(input);
@@ -46,6 +54,11 @@ public sealed class Day07 : SolutionBase
         return splits;
     }
 
+    /// <summary>
+    /// Calculates the total number of timelines in the grid based on the input string.
+    /// </summary>
+    /// <param name="input">The input string representing the grid.</param>
+    /// <returns>The total number of timelines.</returns>
     public override object PartTwo(string input)
     {
         Grid<char> grid = Grid.OfChars(input);

@@ -3,12 +3,17 @@ using KE.AoC.Solutions.Common;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 4: Printing Department ---
+/// </summary>
 [Solution(2025, 4)]
 public sealed class Day04 : SolutionBase
 {
     /// <summary>
     /// Counts the number of rolls that can be removed from the grid based on the removal criteria.
     /// </summary>
+    /// <param name="input">The input string representing the grid of rolls.</param>
+    /// <returns>The number of rolls that can be removed.</returns>
     public override object PartOne(string input)
     {
         Grid<bool> grid = Grid.OfBools(input, '@');
@@ -18,8 +23,11 @@ public sealed class Day04 : SolutionBase
     }
 
     /// <summary>
-    /// Counts the total number of rolls that can be removed from the grid by repeatedly removing removable rolls until no more can be removed.
+    /// Counts the total number of rolls that can be removed from the grid by repeatedly
+    /// removing removable rolls until no more can be removed.
     /// </summary>
+    /// <param name="input">The input string representing the grid of rolls.</param>
+    /// <returns>The total number of rolls that can be removed.</returns>
     public override object PartTwo(string input)
     {
         Grid<bool> grid = Grid.OfBools(input, '@');
@@ -36,7 +44,8 @@ public sealed class Day04 : SolutionBase
             }
         }
 
-        // Enqueue all rolls that can be removed (i.e., those with fewer than 4 neighboring rolls) and mark them as removed
+        // Enqueue all rolls that can be removed (i.e., those with fewer than 4 neighboring rolls)
+        // and mark them as removed
         foreach ((int X, int Y, bool IsRoll) in grid.Cells())
         {
             if (IsRoll && counts[X, Y] < 4)
@@ -47,7 +56,8 @@ public sealed class Day04 : SolutionBase
             }
         }
 
-        // Process the queue of removable rolls, updating the counts of neighboring rolls and enqueuing any new removable rolls as they are found
+        // Process the queue of removable rolls, updating the counts of neighboring rolls
+        // and enqueuing any new removable rolls as they are found
         while (queue.Count > 0)
         {
             (int X, int Y) cell = queue.Dequeue();

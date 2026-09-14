@@ -2,12 +2,17 @@
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 11: Reactor ---
+/// </summary>
 [Solution(2025, 11)]
 public sealed class Day11 : SolutionBase
 {
     /// <summary>
     /// Counts the number of distinct paths from "you" to "out" in a directed graph.
     /// </summary>
+    /// <param name="input">The input string representing the directed graph.</param>
+    /// <returns>The number of distinct paths.</returns>
     public override object PartOne(string input)
     {
         const string start = "you";
@@ -38,8 +43,11 @@ public sealed class Day11 : SolutionBase
     }
 
     /// <summary>
-    /// Counts the number of distinct paths from "svr" to "out" in a directed graph, that visit both "dac" and "fft" at least once.
+    /// Counts the number of distinct paths from "svr" to "out" in a directed graph,
+    /// that visit both "dac" and "fft" at least once.
     /// </summary>
+    /// <param name="input">The input string representing the directed graph.</param>
+    /// <returns>The number of distinct paths.</returns>
     public override object PartTwo(string input)
     {
         const string start = "svr";
@@ -75,6 +83,12 @@ public sealed class Day11 : SolutionBase
         }
     }
 
+    /// <summary>
+    /// Parses the input string into a directed graph represented as a dictionary
+    /// where each key is a node and the value is a list of nodes it points to.
+    /// </summary>
+    /// <param name="span">The span containing the input string.</param>
+    /// <returns>The parsed directed graph.</returns>
     private static Dictionary<string, List<string>> ParseGraph(ReadOnlySpan<char> span)
     {
         Dictionary<string, List<string>> graph = [];

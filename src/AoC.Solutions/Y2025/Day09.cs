@@ -5,12 +5,17 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 9: Movie Theater ---
+/// </summary>
 [Solution(2025, 9)]
 public sealed class Day09 : SolutionBase
 {
     /// <summary>
     /// Calculates the maximum area of a rectangle that can be formed by any two points from the input string.
     /// </summary>
+    /// <param name="input">The input string containing the points.</param>
+    /// <returns>The maximum area of a rectangle.</returns>
     public override object PartOne(string input)
     {
         List<Point2D<int>> points = ParsePoints(input.AsSpan());
@@ -24,6 +29,8 @@ public sealed class Day09 : SolutionBase
     /// Calculates the maximum area of a rectangle that can be formed by any two points from the input string,
     /// such that the rectangle is entirely contained within the polygon defined by the points.
     /// </summary>
+    /// <param name="input">The input string containing the points.</param>
+    /// <returns>The maximum area of a rectangle.</returns>
     public override object PartTwo(string input)
     {
         List<Point2D<int>> points = ParsePoints(input.AsSpan());
@@ -38,8 +45,10 @@ public sealed class Day09 : SolutionBase
     }
 
     /// <summary>
-    /// Parses the input string into a list of 2D points represented by Point2D<int> objects.
+    /// Parses a string representation of points into a list of Point2D<int> objects.
     /// </summary>
+    /// <param name="span">The span containing the input string.</param>
+    /// <returns>The list of 2D points.</returns>
     private static List<Point2D<int>> ParsePoints(ReadOnlySpan<char> span)
     {
         List<Point2D<int>> result = [];
@@ -64,6 +73,9 @@ public sealed class Day09 : SolutionBase
     /// <summary>
     /// Checks if a given rectangle is entirely contained within a polygon.
     /// </summary>
+    /// <param name="rectangle">The rectangle to check.</param>
+    /// <param name="polygon">The polygon to check against.</param>
+    /// <returns>true if the rectangle is entirely contained within the polygon; otherwise, false.</returns>
     private static bool IsRectangleInsidePolygon(Rectangle rectangle, Polygon polygon)
     {
         // Every corner must be inside or on the polygon boundary.
@@ -86,6 +98,9 @@ public sealed class Day09 : SolutionBase
     /// <summary>
     /// Checks if a given vertex is inside or on the boundary of a polygon.
     /// </summary>
+    /// <param name="vertex">The vertex to check.</param>
+    /// <param name="polygon">The polygon to check against.</param>
+    /// <returns>true if the vertex is inside or on the boundary of the polygon; otherwise, false.</returns>
     private static bool IsVertexInPolygon(Point2D<int> vertex, Polygon polygon)
     {
         bool inside = false;
@@ -118,8 +133,12 @@ public sealed class Day09 : SolutionBase
     }
 
     /// <summary>
-    /// Checks if a given vertex lies on a specified edge. The edge must be either horizontal or vertical.
+    /// Checks if a given vertex lies on a specified edge.
+    /// The edge must be either horizontal or vertical.
     /// </summary>
+    /// <param name="vertex">The vertex to check.</param>
+    /// <param name="edge">The edge to check against.</param>
+    /// <returns>true if the vertex lies on the edge; otherwise, false.</returns>
     private static bool IsVertexOnEdge(Point2D<int> vertex, Edge edge)
     {
         if (edge.IsHorizontal)
@@ -142,6 +161,9 @@ public sealed class Day09 : SolutionBase
     /// <summary>
     /// Checks if a given edge crosses the interior of a specified rectangle.
     /// </summary>
+    /// <param name="edge">The edge to check.</param>
+    /// <param name="rectangle">The rectangle to check against.</param>
+    /// <returns>true if the edge crosses the rectangle's interior; otherwise, false.</returns>
     private static bool EdgeCrossesRectangleInterior(Edge edge, Rectangle rectangle)
     {
         if (edge.IsHorizontal)
@@ -180,6 +202,7 @@ public sealed class Day09 : SolutionBase
         /// <summary>
         /// Initializes a new instance of the <see cref="Polygon"/> class with a list of vertices.
         /// </summary>
+        /// <param name="vertices">The list of vertices defining the polygon.</param>
         public Polygon(List<Point2D<int>> vertices)
         {
             int n = vertices.Count;
@@ -278,8 +301,12 @@ public sealed class Day09 : SolutionBase
         public long Area { get; } = (MaxX - MinX + 1L) * (MaxY - MinY + 1L);
 
         /// <summary>
-        /// Creates a rectangle from two corner points, ensuring that the minimum and maximum coordinates are correctly assigned.
+        /// Creates a rectangle from two corner points,
+        /// ensuring that the minimum and maximum coordinates are correctly assigned.
         /// </summary>
+        /// <param name="corner1">The first corner point.</param>
+        /// <param name="corner2">The second corner point.</param>
+        /// <returns>The rectangle defined by the two corner points.</returns>
         public static Rectangle FromCorners(Point2D<int> corner1, Point2D<int> corner2)
         {
             return new(

@@ -4,12 +4,18 @@ using System.Text;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 6: Trash Compactor ---
+/// </summary>
 [Solution(2025, 6)]
 public sealed class Day06 : SolutionBase
 {
     /// <summary>
-    /// Calculates the sum of the results of applying the specified operators to groups of values extracted from the input.
+    /// Calculates the sum of the results of applying the specified operators
+    /// to groups of values extracted from the input.
     /// </summary>
+    /// <param name="input">The input string containing the groups of values and operators.</param>
+    /// <returns>The sum of the results.</returns>
     public override object PartOne(string input)
     {
         var groups = new List<Group>();
@@ -56,8 +62,11 @@ public sealed class Day06 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the sum of the results of applying the specified operators to groups of values extracted from the input.
+    /// Calculates the sum of the results of applying the specified operators
+    /// to groups of values extracted from the input.
     /// </summary>
+    /// <param name="input">The input string containing the groups of values and operators.</param>
+    /// <returns>The sum of the results.</returns>
     public override object PartTwo(string input)
     {
         string[] lines = input.Split("\r\n");
@@ -117,6 +126,7 @@ public sealed class Day06 : SolutionBase
         /// <summary>
         /// Calculates the result of applying the operator to the values in this group.
         /// </summary>
+        /// <returns>The calculated result as a long integer.</returns>
         public long Calculate()
         {
             long result = 0;

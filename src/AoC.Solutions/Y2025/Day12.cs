@@ -4,6 +4,9 @@ using System.Globalization;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 12: Christmas Tree Farm ---
+/// </summary>
 [Solution(2025, 12)]
 public sealed class Day12 : SolutionBase
 {
@@ -17,6 +20,16 @@ public sealed class Day12 : SolutionBase
         return regions.Count(region => IsRegionValid(region, shapes));
     }
 
+    /// <summary>
+    /// Counts the number of regions that can be filled with the given shapes,
+    /// considering only square shapes.
+    /// </summary>
+    /// <param name="region">The region to check.</param>
+    /// <param name="shapes">The list of shapes to consider.</param>
+    /// <returns>true if the region can be filled with the given shapes; otherwise, false.</returns>
+    /// <exception cref="NotImplementedException">
+    /// Thrown when the rest of the validation logic is not implemented.
+    /// </exception>
     private static bool IsRegionValid(Region region, List<Grid<bool>> shapes)
     {
         if (shapes.All(s => s.Width == s.Height))
@@ -43,6 +56,11 @@ public sealed class Day12 : SolutionBase
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Parses the input string into a list of shapes and a list of regions.
+    /// </summary>
+    /// <param name="span">The span containing the input string.</param>
+    /// <returns>A tuple containing the list of shapes and the list of regions.</returns>
     private static (List<Grid<bool>> Shapes, List<Region> Regions) Parse(ReadOnlySpan<char> span)
     {
         List<Grid<bool>> shapes = [];
@@ -82,10 +100,23 @@ public sealed class Day12 : SolutionBase
         }
     }
 
+    /// <summary>
+    /// Represents a rectangular region with a specified width, height,
+    /// and a list of quantities for different shapes.
+    /// </summary>
+    /// <param name="Width">The width of the region.</param>
+    /// <param name="Height">The height of the region.</param>
+    /// <param name="Quantity">The list of quantities for different shapes.</param>
     private record Region(int Width, int Height, List<int> Quantity)
     {
         public int Area => Width * Height;
 
+        /// <summary>
+        /// Parses a span of characters representing a region
+        /// in the format "WidthxHeight:Quantity1,Quantity2,...".
+        /// </summary>
+        /// <param name="span">The span containing the region definition.</param>
+        /// <returns>The parsed region.</returns>
         public static Region Parse(ReadOnlySpan<char> span)
         {
             int x = span.IndexOf('x');

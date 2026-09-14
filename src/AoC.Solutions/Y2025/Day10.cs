@@ -4,12 +4,18 @@ using System.Numerics;
 
 namespace KE.AoC.Solutions.Y2025;
 
+/// <summary>
+/// --- Day 10: Factory ---
+/// </summary>
 [Solution(2025, 10)]
 public sealed class Day10 : SolutionBase
 {
     /// <summary>
-    /// Calculates the fewest button presses needed to achieve the target values for all machines described in the input.
+    /// Calculates the fewest button presses needed to achieve the target values
+    /// for all machines described in the input.
     /// </summary>
+    /// <param name="input">The input string containing the machine configurations.</param>
+    /// <returns>The fewest button presses needed.</returns>
     public override object PartOne(string input)
     {
         List<Machine> machines = [];
@@ -53,8 +59,11 @@ public sealed class Day10 : SolutionBase
     }
 
     /// <summary>
-    /// Calculates the fewest button presses needed to archive the joltage values for all machines described in the input.
+    /// Calculates the fewest button presses needed to archive the joltage values
+    /// for all machines described in the input.
     /// </summary>
+    /// <param name="input">The input string containing the machine configurations.</param>
+    /// <returns>The fewest button presses needed.</returns>
     public override object PartTwo(string input)
     {
         List<Machine> machines = [];
@@ -135,6 +144,8 @@ public sealed class Day10 : SolutionBase
     /// <summary>
     /// Parses a ReadOnlySpan of characters representing a machine configuration into a Machine object.
     /// </summary>
+    /// <param name="span">The span containing the machine configuration.</param>
+    /// <returns>The parsed Machine object.</returns>
     private static Machine ParseMachine(ReadOnlySpan<char> span)
     {
         int target = 0;
@@ -159,8 +170,11 @@ public sealed class Day10 : SolutionBase
     }
 
     /// <summary>
-    /// Parses a ReadOnlySpan of characters representing a target value with '#' characters into an integer mask.
+    /// Parses a ReadOnlySpan of characters representing
+    /// a target value with '#' characters into an integer mask.
     /// </summary>
+    /// <param name="span">The span containing the target value.</param>
+    /// <returns>The integer mask representing the target value.</returns>
     private static int ParseTarget(ReadOnlySpan<char> span)
     {
         int mask = 0;
@@ -173,8 +187,11 @@ public sealed class Day10 : SolutionBase
     }
 
     /// <summary>
-    /// Parses a ReadOnlySpan of characters representing button values separated by commas into an integer mask.
+    /// Parses a ReadOnlySpan of characters representing
+    /// button values separated by commas into an integer mask.
     /// </summary>
+    /// <param name="span">The span containing the button values.</param>
+    /// <returns>The integer mask representing the button values.</returns>
     private static int ParseButton(ReadOnlySpan<char> span)
     {
         int mask = 0;
@@ -186,8 +203,11 @@ public sealed class Day10 : SolutionBase
     }
 
     /// <summary>
-    /// Parses a ReadOnlySpan of characters representing joltage values separated by commas into an array of integers.
+    /// Parses a ReadOnlySpan of characters representing
+    /// joltage values separated by commas into an array of integers.
     /// </summary>
+    /// <param name="span">The span containing the joltage values.</param>
+    /// <returns>The array of integers representing the joltage values.</returns>
     private static int[] ParseJoltage(ReadOnlySpan<char> span)
     {
         int[] values = new int[span.Count(',') + 1];
@@ -204,5 +224,8 @@ public sealed class Day10 : SolutionBase
     /// <summary>
     /// Represents a machine with a target value, a list of button values, and an array of joltage values.
     /// </summary>
+    /// <param name="Target">The target value represented as an integer mask.</param>
+    /// <param name="Buttons">The list of button values represented as an array of integers.</param>
+    /// <param name="Joltage">The array of joltage values.</param>
     private sealed record Machine(int Target, int[] Buttons, int[] Joltage) { }
 }
